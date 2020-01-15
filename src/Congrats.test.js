@@ -4,6 +4,8 @@ import { shallow } from 'enzyme';
 import { findByTestAttribute, checkProps } from '../test/testUtilities';
 import Congrats from './Congrats';
 
+const defaultProps = { success: false };
+
 /**
  * Factory function to create a ShallowWrapper for the Congrats component.
  * @function setup
@@ -11,11 +13,9 @@ import Congrats from './Congrats';
  * @returns {ShallowWrapper} 
  */
 const setup = (props = {}) => {
-  const defaultProps = { success: false };
-  const setupProps = {...defaultProps, ...props }
+  const setupProps = { ...defaultProps, ...props }
   return shallow(<Congrats {...setupProps} />);
 }
-
 
 test('renders without errors', () => {
   const wrapper = setup();
@@ -35,4 +35,4 @@ test('renders non-empty congrats message when `success` prop is true', () => {
 test('does not throw warning with expected props', () => {
   const expectedProps = { success: false };
   checkProps(Congrats, expectedProps);
-})
+}); 
