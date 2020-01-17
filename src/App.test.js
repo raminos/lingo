@@ -19,7 +19,7 @@ const setup = (secretWord = "party") => {
 
   const mockUseReducer = jest.fn()
     .mockReturnValue([
-      { secretWord },
+      { secretWord, language: 'en' },
       jest.fn()
     ]);
 
@@ -58,7 +58,7 @@ describe('secretWord is not null', () => {
   beforeEach(() => {
     wrapper = setup('party');
   })
-  
+
   test('renders app when secretWord is not null', () => {
     const appComponent = findByTestAttribute(wrapper, 'component-app');
     expect(appComponent.exists()).toBe(true);
@@ -74,7 +74,7 @@ describe('secretWord is null', () => {
   beforeEach(() => {
     wrapper = setup(null);
   })
-  
+
   test('does not render app when secretWord is null', () => {
     const appComponent = findByTestAttribute(wrapper, 'component-app');
     expect(appComponent.exists()).toBe(false);

@@ -24,5 +24,11 @@ test('renders non-zero language icons', () => {
   expect(languageIcons.length).toBeGreaterThan(0);
 });
 test('calls setLanguage prop upon click', () => {
+  const wrapper = setup();
+  const languageIcons = findByTestAttribute(wrapper, 'language-icon');
 
+  const firstIcon = languageIcons.first();
+  firstIcon.simulate('click');
+
+  expect(mockSetLanguage).toHaveBeenCalled();
 });
