@@ -29,6 +29,13 @@ const Input = ({ secretWord }) => {
           type="submit"
           onClick={(event) => {
             event.preventDefault();
+            
+            if(currentGuess === secretWord) {
+              setSuccess(true);
+            }
+
+
+            // clear input box
             setCurrentGuess('')
             // TODO: update guessedWords
             // TODO: check against secretWord and update success if needed
