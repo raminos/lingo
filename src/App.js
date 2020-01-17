@@ -64,7 +64,7 @@ const App = () => {
       data-test="component-app"
       className="container"
     >
-      <h1>Jotto</h1>
+      <h1><a href="/">Lingo</a></h1>
       <languageContext.Provider value={state.language}>
         <LanguagePicker setLanguage={setLanguage} />
         <guessedWordsContext.GuessedWordsProvider>
