@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 
 import { findByTestAttribute } from '../test/testUtilities';
 import Congrats from './Congrats';
+
 import languageContext from './contexts/languageContext';
 import successContext from './contexts/successContext';
 
@@ -17,11 +18,11 @@ const setup = ({ success, language }) => {
   success = success || false;
 
   return mount(
-    <languageContext.Provider value={language}>
+    <languageContext.LanguageProvider value={[language, jest.fn()]}>
       <successContext.SuccessProvider value={[success, jest.fn()]}>
         <Congrats />
       </successContext.SuccessProvider>
-    </languageContext.Provider>
+    </languageContext.LanguageProvider>
   )
 }
 
@@ -46,8 +47,8 @@ describe('LanguagePicker', () => {
     const wrapper = setup({ success: true });
     expect(wrapper.text()).toContain('Congratulations')
   });
-  test('correctly renders congrats string in emoji', () => {
-    const wrapper = setup({ success: true, language: 'emoji' });
-    expect(wrapper.text()).toBe('🎯🎉');
+  test('correctly renders congrats string in French', () => {
+    const wrapper = setup({ success: true, language: 'fr' });
+    expect(wrapper.text()).toContain('deviné');
   });
 });

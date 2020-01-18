@@ -2,6 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { findByTestAttribute, checkProps } from '../test/testUtilities';
 import Input from './Input';
+
 import languageContext from './contexts/languageContext';
 import successContext from './contexts/successContext';
 import guessedWordsContext from './contexts/guessedWordsContext';
@@ -17,13 +18,13 @@ const setup = ({ language, secretWord, success }) => {
   success = success || false;
 
   return mount(
-    <languageContext.Provider value={language} >
+    <languageContext.LanguageProvider value={[language, jest.fn]} >
       <successContext.SuccessProvider value={[success, jest.fn()]}>
         <guessedWordsContext.GuessedWordsProvider>
           <Input secretWord={secretWord} />
         </guessedWordsContext.GuessedWordsProvider>
       </successContext.SuccessProvider>
-    </languageContext.Provider>
+    </languageContext.LanguageProvider>
   )
 }
 
@@ -37,24 +38,20 @@ test('does not throw error with expected props', () => {
 });
 
 describe('state controlled input field', () => {
+  const mockEvent = { target: { value: 'train' } };
   let mockSetCurrentGuess;
   let wrapper;
 
   beforeEach(() => {
     mockSetCurrentGuess = jest.fn();
-    React.useState = jest.fn(() => ["", mockSetCurrentGuess]);
+    React.useState = jest.fn(() => ['', mockSetCurrentGuess]);
     wrapper = setup({});
   })
   test('state updates with value of input box upon change', () => {
     const inputBox = findByTestAttribute(wrapper, 'input-box');
-    const mockEvent = { target: { value: 'train' } };
+    
     inputBox.simulate('change', mockEvent);
     expect(mockSetCurrentGuess).toHaveBeenCalledWith('train');
-  });
-  test('state updates without value of input box upon change', () => {
-    const submitButton = findByTestAttribute(wrapper, 'submit-button');
-    submitButton.simulate('click', { preventDefault() { } });
-    expect(mockSetCurrentGuess).toHaveBeenCalledWith('');
   });
 });
 
@@ -64,10 +61,10 @@ describe('LanguagePicker', () => {
     const submitButton = findByTestAttribute(wrapper, 'submit-button');
     expect(submitButton.text()).toBe('Submit');
   });
-  test('correctyl renders submit string in emoiji', () => {
-    const wrapper = setup({ language: 'emoji' });
+  test('correctyl renders submit string in French', () => {
+    const wrapper = setup({ language: 'fr' });
     const submitButton = findByTestAttribute(wrapper, 'submit-button');
-    expect(submitButton.text()).toBe('🚀');
+    expect(submitButton.text()).toBe('Soumettre');
   });
 });
 

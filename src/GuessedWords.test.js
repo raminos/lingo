@@ -1,20 +1,29 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { findByTestAttribute } from '../test/testUtilities';
-import GuessedWords from './GuessedWords';
 
+import GuessedWords from './GuessedWords';
 import guessedWordsContext from './contexts/guessedWordsContext';
+import languageContext from './contexts/languageContext';
 
 /**
- * Factory function to create a ShallowWrapper for the GuessedWords component.
+ * Factory function to create a mountWrapper for the GuessedWords component.
  * @function setup
  * @param {array} guessedWords - Component props specific to this setup
- * @returns {ShallowWrapper}
+ * @returns {ReactWrapper}
  */
-const setup = (guessedWords = []) => {
+const setup = (guessedWords = [], language='en') => {
   const mockUseGuessedWords = jest.fn().mockReturnValue([guessedWords, jest.fn()]);
-  guessedWordsContext.useGuessedWords = mockUseGuessedWords;
-  return shallow(<GuessedWords />);
+
+  const mockUselanguage = jest.fn().mockReturnValue([language, jest.fn()])
+
+  return mount(
+    <languageContext.LanguageProvider value={mockUselanguage()}>
+      <guessedWordsContext.GuessedWordsProvider value={mockUseGuessedWords()}>
+        <GuessedWords />
+      </guessedWordsContext.GuessedWordsProvider>
+    </languageContext.LanguageProvider>
+  );
 };
 
 
@@ -65,13 +74,10 @@ describe('LanguagePicker', () => {
     const guessInstructions = findByTestAttribute(wrapper, 'guess-instructions');
     expect(guessInstructions.text()).toContain('guess')
   })
-  test('correctly renders guess instructions string in emoji', () => {
-    const mockUseContext = jest.fn().mockReturnValue('emoji');
-    React.useContext = mockUseContext;
-
-    const wrapper = setup([]);
+  test('correctly renders guess instructions string in French', () => {    
+    const wrapper = setup([], 'fr');
     const guessInstructions = findByTestAttribute(wrapper, 'guess-instructions');
 
-    expect(guessInstructions.text()).toBe('🤔🤫🔤');
+    expect(guessInstructions.text()).toContain('deviner');
   })
 })

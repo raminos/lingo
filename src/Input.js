@@ -8,12 +8,28 @@ import stringsModule from './helpers/strings';
 import { getLetterMatchCount } from './helpers';
 
 const Input = ({ secretWord }) => {
-  const language = React.useContext(languageContext);
+  const [language] = languageContext.useLanguage();
   const [success, setSuccess] = successContext.useSuccess();
   const [guessedWords, setGuessedWords] = guessedWordsContext.useGuessedWords();
   const [currentGuess, setCurrentGuess] = React.useState("");
 
   if (success) return null;
+
+  const handleClick = (event) => {
+    event.preventDefault();
+    // return in case of empty submit
+    if (currentGuess === '') return null;
+    // show Congrats component in case of correctly guessed word
+    if (currentGuess === secretWord) setSuccess(true);
+    
+    // update guessedWords context with new entry
+    const letterMatchCount = getLetterMatchCount(currentGuess, secretWord);
+    const newGuessedWords = [...guessedWords, { guessedWord: currentGuess, letterMatchCount }];
+    setGuessedWords(newGuessedWords);
+
+    // clear input box
+    return setCurrentGuess('');
+  }
 
   return (
     <div data-test="component-input">
@@ -30,19 +46,7 @@ const Input = ({ secretWord }) => {
           data-test="submit-button"
           className="btn btn-primary mb-2"
           type="submit"
-          onClick={(event) => {
-            event.preventDefault();
-            const letterMatchCount = getLetterMatchCount(currentGuess, secretWord);
-            const newGuessedWords = [...guessedWords, { guessedWord: currentGuess, letterMatchCount }];
-            setGuessedWords(newGuessedWords);
-            if (currentGuess === secretWord) {
-              setSuccess(true);
-            }
-
-
-            // clear input box
-            setCurrentGuess('')
-          }}
+          onClick={handleClick}
         >
           {stringsModule.getStringByLanguage(language, 'submit')}
         </button>

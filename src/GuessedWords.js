@@ -6,8 +6,9 @@ import stringModule from './helpers/strings';
 
 const GuessedWords = () => {
   const [guessedWords] = guessedWordsContext.useGuessedWords();
-  const language = React.useContext(languageContext);
+  const [language] = languageContext.useLanguage();
   let contents;
+
   if (guessedWords.length === 0) {
     contents = (
       <span data-test="guess-instructions">

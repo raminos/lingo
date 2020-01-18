@@ -12,7 +12,7 @@ import stringsModule from './helpers/strings';
  */
 const Congrats = () => {
   const [success] = successContext.useSuccess();
-  const language = React.useContext(languageContext);
+  const [language] = languageContext.useLanguage();
 
   if (success) {
     return (

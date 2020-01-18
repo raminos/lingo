@@ -1,54 +1,35 @@
 import React from 'react';
 import './App.css';
 
+// helpers
 import hookActions from './actions/hookActions';
+
+// contexts
 import languageContext from './contexts/languageContext';
-import successContext from './contexts/successContext';
 import guessedWordsContext from './contexts/guessedWordsContext';
 
+// components
 import GuessedWords from './GuessedWords';
 import Congrats from './Congrats';
 import Input from './Input';
 import LanguagePicker from './LanguagePicker';
 
 
-
-
-/**
- * Reducer to update state, called automatically by dispatch.
- * @param {object} state - existing state.
- * @param {object} action - contains 'type' and 'payload' properties for the 
- *                          state update.
- *                          i.e.: { type: 'setSecretWord', payload: 'party' }
- * @returns {object} - new state
- */
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'setSecretWord':
-      return { ...state, secretWord: action.payload };
-    case 'setLanguage':
-      return { ...state, language: action.payload };
-    default:
-      throw new Error(`invalid action type: ${action.type}`)
-  }
-}
-
-const App = () => {
-  const [state, dispatch] = React.useReducer(
-    reducer,
-    { secretWord: null, language: 'en' }
-  )
-
-  const setLanguage = (language) =>
-    dispatch({ type: 'setLanguage', payload: language });
-  const setSecretWord = (secretWord) =>
-    dispatch({ type: 'setSecretWord', payload: secretWord });
+const App = ({ initialState }) => {
+  initialState = initialState || null;
+  const [secretWord, setSecretWord] = React.useState(initialState);
+  const [language] = languageContext.useLanguage();
+  const setGuessedWords = guessedWordsContext.useGuessedWords()[1];
 
   React.useEffect(
-    () => { hookActions.getSecretWord(setSecretWord) }, []
+    () => {
+      hookActions.getSecretWord(setSecretWord, language);
+
+      setGuessedWords([])
+    }, [language]
   );
 
-  if (!state.secretWord) {
+  if (!secretWord) {
     return (
       <div className="container" data-test="spinner">
         <div className="spinner-border" role="status">
@@ -65,16 +46,10 @@ const App = () => {
       className="container"
     >
       <h1><a href="/">Lingo</a></h1>
-      <languageContext.Provider value={state.language}>
-        <LanguagePicker setLanguage={setLanguage} />
-        <guessedWordsContext.GuessedWordsProvider>
-          <successContext.SuccessProvider>
-            <Congrats />
-            <Input secretWord={state.secretWord} />
-          </successContext.SuccessProvider>
-          <GuessedWords />
-        </guessedWordsContext.GuessedWordsProvider>
-      </languageContext.Provider>
+      <LanguagePicker />
+      <Congrats />
+      <Input secretWord={secretWord} />
+      <GuessedWords />
     </div>
   );
 }

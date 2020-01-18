@@ -4,27 +4,33 @@ import { findByTestAttribute } from '../test/testUtilities';
 
 import guessedWordsContext from './contexts/guessedWordsContext';
 import successContext from './contexts/successContext';
+import languageContext from './contexts/languageContext';
+
 import Input from './Input';
 import GuessedWords from './GuessedWords';
 
 const setup = (guessedWordsStrings = [], secretWord = 'party') => {
   const wrapper = mount(
-    <guessedWordsContext.GuessedWordsProvider>
+    <languageContext.LanguageProvider>
       <successContext.SuccessProvider>
-        <Input secretWord={secretWord} />
-        <GuessedWords />
+        <guessedWordsContext.GuessedWordsProvider>
+
+          <Input secretWord={secretWord} />
+          <GuessedWords />
+
+        </guessedWordsContext.GuessedWordsProvider>
       </successContext.SuccessProvider>
-    </guessedWordsContext.GuessedWordsProvider>
+    </languageContext.LanguageProvider>
   );
 
   const inputBox = findByTestAttribute(wrapper, 'input-box');
   const submitButton = findByTestAttribute(wrapper, 'submit-button');
 
-  // prepopulate guessedWords context by simulating word guess
+  // manually prepopulate guessedWords context by simulating word guess
   guessedWordsStrings.map(word => {
     const mockEvent = { target: { value: word } };
     inputBox.simulate('change', mockEvent);
-    submitButton.simulate('click');
+    submitButton.simulate('click', { preventDefault() { } });
   })
 
   return [wrapper, inputBox, submitButton];
@@ -40,12 +46,13 @@ describe('test word guesses', () => {
     beforeEach(() => {
       [wrapper, inputBox, submitButton] = setup([], 'party');
     });
+
     test('incorrect guess is updates the GuessWords table row count', () => {
       const mockEvent = { target: { value: 'train' } };
-      
+
       inputBox.simulate('change', mockEvent);
       submitButton.simulate('click');
-      
+
       const guessedWordsTableRows = findByTestAttribute(wrapper, 'guessed-word');
       expect(guessedWordsTableRows.length).toBe(1);
     });

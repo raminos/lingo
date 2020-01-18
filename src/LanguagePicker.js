@@ -1,10 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import languageContext from './contexts/languageContext';
 
-function LanguagePicker({ setLanguage }) {
+const LanguagePicker = () => {
+  const [language, setLanguage] = languageContext.useLanguage();
   const languages = [
     { code: 'en', symbol: '🇺🇸' },
-    { code: 'emoji', symbol: '😊' }
+    { code: 'fr', symbol: '🇫🇷'},
+    { code: 'de', symbol: '🇩🇪'}
   ];
 
   const languageIcons = languages.map(lang =>
@@ -23,9 +25,5 @@ function LanguagePicker({ setLanguage }) {
     </div>
   );
 }
-LanguagePicker.propTypes = {
-  setLanguage: PropTypes.func.isRequired
-}
-
 
 export default LanguagePicker;

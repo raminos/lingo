@@ -1,13 +1,18 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
+import { findByTestAttribute } from '../test/testUtilities';
 
-import { findByTestAttribute, checkProps } from '../test/testUtilities';
 import LanguagePicker from './LanguagePicker';
+import languageContext from './contexts/languageContext';
 
-const mockSetLanguage = jest.fn();
+const mockUseLanguage = jest.fn().mockReturnValue([null, jest.fn()]);
 
 const setup = () => {
-  return shallow(<LanguagePicker setLanguage={mockSetLanguage} />);
+  return mount(
+    <languageContext.LanguageProvider value={mockUseLanguage()}>
+      <LanguagePicker />
+    </languageContext.LanguageProvider>
+  );
 }
 
 test('renders without errors', () => {
@@ -15,20 +20,17 @@ test('renders without errors', () => {
   const component = findByTestAttribute(wrapper, 'component-language-picker');
   expect(component.exists()).toBe(true);
 });
-test('does not throw warning with expected props', () => {
-  checkProps(LanguagePicker, { setLanguage: jest.fn()});
-});
 test('renders non-zero language icons', () => {
   const wrapper = setup();
   const languageIcons = findByTestAttribute(wrapper, 'language-icon');
   expect(languageIcons.length).toBeGreaterThan(0);
 });
-test('calls setLanguage prop upon click', () => {
+test('calls setLanguage upon click', () => {
   const wrapper = setup();
   const languageIcons = findByTestAttribute(wrapper, 'language-icon');
 
   const firstIcon = languageIcons.first();
   firstIcon.simulate('click');
 
-  expect(mockSetLanguage).toHaveBeenCalled();
+  expect(mockUseLanguage).toHaveBeenCalled();
 });

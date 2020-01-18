@@ -1,12 +1,13 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { findByTestAttribute, checkProps } from '../test/testUtilities';
+import { findByTestAttribute } from '../test/testUtilities';
 import App from './App';
 
 import hookActions from './actions/hookActions';
+import AppContext from './contexts';
+import { act } from 'react-dom/test-utils';
 
 const mockGetSecretWord = jest.fn();
-
 /**
  * Factory function to create a ShallowWrapper for the GuessedWords component.
  * @function setup
@@ -15,25 +16,18 @@ const mockGetSecretWord = jest.fn();
  */
 const setup = (secretWord = "party") => {
   mockGetSecretWord.mockClear();
-  hookActions.getSecretWord = mockGetSecretWord;
+  hookActions.getSecretWord = mockGetSecretWord
 
-  const mockUseReducer = jest.fn()
-    .mockReturnValue([
-      { secretWord, language: 'en' },
-      jest.fn()
-    ]);
-
-  React.useReducer = mockUseReducer;
-
-  // use mount, because useEffect is not called on `shallow`
-  // https://github.com/airbnb/enzyme/issues/2086
-  return mount(<App />);
+  return mount(
+    <AppContext>
+      <App initialState={secretWord} />
+    </AppContext>);
 };
 
 test('renders without errors', () => {
   const wrapper = setup();
   const component = findByTestAttribute(wrapper, 'component-app');
-  expect(component.length).toBe(1);
+  expect(component.exists()).toBe(true);
 });
 
 describe('getSecretWord calls', () => {
@@ -47,7 +41,12 @@ describe('getSecretWord calls', () => {
     const wrapper = setup();
     mockGetSecretWord.mockClear();
 
-    wrapper.setProps();
+    const mockEvent = { target: { value: 'train' } };
+    const inputBox = findByTestAttribute(wrapper, 'input-box');
+    const submitButton = findByTestAttribute(wrapper, 'submit-button');
+
+    inputBox.simulate('change', mockEvent);
+    submitButton.simulate('click', { preventDefault() { } });
 
     expect(mockGetSecretWord).not.toHaveBeenCalled();
   });
@@ -58,7 +57,6 @@ describe('secretWord is not null', () => {
   beforeEach(() => {
     wrapper = setup('party');
   })
-
   test('renders app when secretWord is not null', () => {
     const appComponent = findByTestAttribute(wrapper, 'component-app');
     expect(appComponent.exists()).toBe(true);
