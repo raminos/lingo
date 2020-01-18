@@ -13,8 +13,8 @@ const setup = (language = 'en') => {
     </languageContext.LanguageProvider>
   );
 
-  const subheadingComponent = findByTestAttribute(wrapper, 'component-subheading');
-  return subheadingComponent;
+  const component = findByTestAttribute(wrapper, 'component-subheading');
+  return component;
 }
 
 test('renders without errors', () => {
@@ -23,9 +23,9 @@ test('renders without errors', () => {
 });
 test('displays text by default in English', () => {
   const subheadingComponent = setup();
-  expect(subheadingComponent.text()).toContain('game');
+  expect(subheadingComponent.text()).toMatch(/game/i);
 });
-test('displays text upon language change in French', () => {
+test('displays expected text in French', () => {
   const subheadingComponent = setup('fr');
-  expect(subheadingComponent.text()).toContain('jeu');
+  expect(subheadingComponent.text()).toMatch(/jeu/i);
 });

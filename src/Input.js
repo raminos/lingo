@@ -46,7 +46,7 @@ const Input = ({ secretWord }) => {
             value={currentGuess}
             onChange={(event) => setCurrentGuess(event.target.value)}
           />
-          <div class="input-group-append">
+          <div className="input-group-append">
             <button
               data-test="submit-button"
               className="btn btn-outline-secondary"

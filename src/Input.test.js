@@ -59,12 +59,12 @@ describe('LanguagePicker', () => {
   test('correctly renders submit string in english', () => {
     const wrapper = setup({ language: 'en' });
     const submitButton = findByTestAttribute(wrapper, 'submit-button');
-    expect(submitButton.text()).toBe('Submit');
+    expect(submitButton.text()).toMatch(/submit/i);
   });
   test('correctyl renders submit string in French', () => {
     const wrapper = setup({ language: 'fr' });
     const submitButton = findByTestAttribute(wrapper, 'submit-button');
-    expect(submitButton.text()).toBe('Soumettre');
+    expect(submitButton.text()).toMatch(/soumettre/i);
   });
 });
 
