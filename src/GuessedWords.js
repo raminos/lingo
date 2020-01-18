@@ -11,13 +11,18 @@ const GuessedWords = () => {
 
   if (guessedWords.length === 0) {
     contents = (
-      <span data-test="guess-instructions">
+      <p
+        className="lead text-info text-center" 
+        data-test="guess-instructions">
         {stringModule.getStringByLanguage(language, 'guessPrompt')}
-      </span>
+      </p>
     )
   } else {
     const guessedWordsRows = guessedWords.map((word, index) => (
-      <tr data-test="guessed-word" key={index}>
+      <tr
+        data-test="guessed-word"
+        key={index}
+      >
         <td>{word.guessedWord}</td>
         <td>{word.letterMatchCount}</td>
       </tr>

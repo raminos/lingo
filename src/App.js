@@ -13,6 +13,9 @@ import GuessedWords from './GuessedWords';
 import Congrats from './Congrats';
 import Input from './Input';
 import LanguagePicker from './LanguagePicker';
+import Subheading from './Subheading';
+import Nav from './Nav';
+import Spinner from './Spinner';
 
 
 const App = ({ initialState }) => {
@@ -29,27 +32,25 @@ const App = ({ initialState }) => {
     }, [language]
   );
 
-  if (!secretWord) {
-    return (
-      <div className="container" data-test="spinner">
-        <div className="spinner-border" role="status">
-          <span className="sr-only">Loading...</span>
-        </div>
-        <p>Loading secret word</p>
-      </div>
-    );
-  }
-
   return (
     <div
       data-test="component-app"
       className="container"
     >
-      <h1><a href="/">Lingo</a></h1>
-      <LanguagePicker />
-      <Congrats />
-      <Input secretWord={secretWord} />
-      <GuessedWords />
+      <div className="col-12 mt-3">
+        <Nav>
+          <LanguagePicker />
+        </Nav>
+        <Subheading />
+        <Congrats />
+
+        {secretWord ?
+          <Input secretWord={secretWord} />
+          :
+          <Spinner />
+        }
+        <GuessedWords />
+      </div>
     </div>
   );
 }

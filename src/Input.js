@@ -21,7 +21,7 @@ const Input = ({ secretWord }) => {
     if (currentGuess === '') return null;
     // show Congrats component in case of correctly guessed word
     if (currentGuess === secretWord) setSuccess(true);
-    
+
     // update guessedWords context with new entry
     const letterMatchCount = getLetterMatchCount(currentGuess, secretWord);
     const newGuessedWords = [...guessedWords, { guessedWord: currentGuess, letterMatchCount }];
@@ -32,26 +32,33 @@ const Input = ({ secretWord }) => {
   }
 
   return (
-    <div data-test="component-input">
-      <form className="form-inline" >
-        <input
-          data-test="input-box"
-          className="mb-2 mx-sm-3"
-          type="text"
-          placeholder={stringsModule.getStringByLanguage(language, 'guessInputPlaceholder')}
-          value={currentGuess}
-          onChange={(event) => setCurrentGuess(event.target.value)}
-        />
-        <button
-          data-test="submit-button"
-          className="btn btn-primary mb-2"
-          type="submit"
-          onClick={handleClick}
-        >
-          {stringsModule.getStringByLanguage(language, 'submit')}
-        </button>
-      </form>
-    </div>
+    <form>
+      <div
+        className="row justify-content-center"
+        data-test="component-input"
+      >
+        <div className="input-group my-3 col-8 ">
+          <input
+            data-test="input-box"
+            className="form-control"
+            type="text"
+            placeholder={stringsModule.getStringByLanguage(language, 'guessInputPlaceholder')}
+            value={currentGuess}
+            onChange={(event) => setCurrentGuess(event.target.value)}
+          />
+          <div class="input-group-append">
+            <button
+              data-test="submit-button"
+              className="btn btn-outline-secondary"
+              type="submit"
+              onClick={handleClick}
+            >
+              {stringsModule.getStringByLanguage(language, 'submit')}
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
   );
 };
 
