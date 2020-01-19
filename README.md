@@ -8,6 +8,15 @@ This is a SPA version of the dutch television game Lingo. It is translated into 
  - Express
  - Bootstrap
 
+## Set Up
+Until now you would need a server that serves five letter words to the application. (I will upload mine soon)
+
+To install use `npm install` to install the needed npm modules.
+
+To start use `npm start` and a browser window will open with the application.
+
+To run the tests use `npm test`.
+
 ## Screenshots
 ![First Screenshot](./images/lingo-1.png)
 ![Second Screenshot](./images/lingo-2.png)
