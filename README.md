@@ -13,3 +13,6 @@ This is a SPA version of the dutch television game Lingo. It is translated into 
 ![Second Screenshot](./images/lingo-2.png)
 ![Third Screenshot](./images/lingo-3.png)
 ![Fourth Screenshot](./images/lingo-4.png)
+
+## Kudos
+This project is built with create-react-app. Also it is based on test driven development practices taught by Bonnie Schulkin.
