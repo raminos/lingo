@@ -1,5 +1,6 @@
 import React from 'react';
 import stringModule from './helpers/strings.js'
+import ReactHtmlParser from 'react-html-parser';
 
 import languageContext from './contexts/languageContext';
 
@@ -10,7 +11,7 @@ const Subheading = () => {
       className="text-justify"
       data-test="component-subheading"
     >
-      {stringModule.getStringByLanguage(language, 'subheading')}
+      {ReactHtmlParser(stringModule.getStringByLanguage(language, 'subheading'))}
     </p>
   )
 };

@@ -1,0 +1,41 @@
+.table-wrapper {
+  background-color: #e9ecef;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid white;
+  padding-bottom: 0px;
+}
+
+.badge {
+  padding: 0.3em 0em;
+  width: 50px;
+}
+
+table {
+  border-radius: 20px;;
+}
+
+thead .badge, tbody .badge {
+  font-size: 1.3em;
+}
+
+tr:last-child {
+  border-bottom: 2px solid #dee2e6;
+}
+
+td {
+  padding: 0.3em 0em !important;
+}
+
+tbody {
+  background-color:white;
+}
+th {
+  padding: 0.5em !important;
+}
+
+table.table tbody tr td,
+table.table thead {
+  border-left: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
+};

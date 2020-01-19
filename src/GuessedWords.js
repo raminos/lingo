@@ -1,4 +1,5 @@
 import React from 'react';
+import './GuessedWords.css';
 
 import guessedWordsContext from './contexts/guessedWordsContext';
 import languageContext from './contexts/languageContext';
@@ -12,35 +13,75 @@ const GuessedWords = () => {
   if (guessedWords.length === 0) {
     contents = (
       <p
-        className="lead text-info text-center" 
+        className="lead text-info text-center"
         data-test="guess-instructions">
         {stringModule.getStringByLanguage(language, 'guessPrompt')}
       </p>
     )
   } else {
-    const guessedWordsRows = guessedWords.map((word, index) => (
-      <tr
-        data-test="guessed-word"
-        key={index}
-      >
-        <td>{word.guessedWord}</td>
-        <td>{word.letterMatchCount}</td>
-      </tr>
-    ));
+    const guessedWordsRows = guessedWords.map((word, index) => {
+      const tableDataArray = [];
+
+      for (let key = 0; key < 5; key++) {
+        if (word.matchingLetters.matchingPositions[key]) {
+          tableDataArray.push(
+            <span className="badge badge-success">
+              {word.matchingLetters.matchingPositions[key]}
+            </span>
+          );
+        } else if (word.matchingLetters.notMatchingPositions[key]) {
+          tableDataArray.push(
+            <span className="badge badge-info">
+              {word.matchingLetters.notMatchingPositions[key]}
+            </span>
+          );
+        } else {
+          tableDataArray.push(
+            <span className="badge badge-dark">
+              {[...word.guessedWord][key]}
+            </span>
+          );
+        }
+      }
+      return (
+        <tr
+          data-test="guessed-word"
+          key={index}
+        >
+          <td>
+            <span className="badge badge-light">
+              {index + 1}
+            </span>
+          </td>
+          {
+            tableDataArray.map((entry, entryIndex) =>
+              <td key={entryIndex}>{entry}</td>
+            )
+          }
+        </tr>
+      )
+    });
+
     contents = (
       <div data-test="guessed-words">
         <h3>{stringModule.getStringByLanguage(language, 'guessColumnHeader')}</h3>
-        <table className="table table-sm">
-          <thead className="thead-light">
-            <tr>
-              <th>{stringModule.getStringByLanguage(language, 'guessedWords')}</th>
-              <th>{stringModule.getStringByLanguage(language, 'matchingLettersColumnHeader')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {guessedWordsRows}
-          </tbody>
-        </table>
+        <div className="table-wrapper">
+          <table className="table text-center">
+            <thead className="thead-light">
+              <tr>
+                <th scope="col"><span className="badge badge-secondary">#</span></th>
+                <th scope="col"><span className="badge badge-secondary">1</span></th>
+                <th scope="col"><span className="badge badge-secondary">2</span></th>
+                <th scope="col"><span className="badge badge-secondary">3</span></th>
+                <th scope="col"><span className="badge badge-secondary">4</span></th>
+                <th scope="col"><span className="badge badge-secondary">5</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              {guessedWordsRows}
+            </tbody>
+          </table>
+        </div>
       </div>
     )
   }

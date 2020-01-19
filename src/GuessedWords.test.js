@@ -1,10 +1,47 @@
 import React from 'react';
+// test utilities and modules
 import { mount } from 'enzyme';
 import { findByTestAttribute } from '../test/testUtilities';
-
+// component
 import GuessedWords from './GuessedWords';
+// needed contexts
 import guessedWordsContext from './contexts/guessedWordsContext';
 import languageContext from './contexts/languageContext';
+// mock data
+const guessedWords = [
+  {
+    "guessedWord": "train",
+    "matchingLetters": {
+      "matchingPositions": {},
+      "notMatchingPositions": {
+        "1": "r",
+        "3": "i"
+      }
+    }
+  },
+  {
+    "guessedWord": "games",
+    "matchingLetters": {
+      "matchingPositions": {
+        "3": "e"
+      },
+      "notMatchingPositions": {}
+    }
+  },
+  {
+    "guessedWord": "fiver",
+    "matchingLetters": {
+      "matchingPositions": {
+        "0": "f",
+        "1": "i",
+        "2": "v",
+        "3": "e",
+        "4": "r"
+      },
+      "notMatchingPositions": {}
+    }
+  }
+]
 
 /**
  * Factory function to create a mountWrapper for the GuessedWords component.
@@ -12,9 +49,8 @@ import languageContext from './contexts/languageContext';
  * @param {array} guessedWords - Component props specific to this setup
  * @returns {ReactWrapper}
  */
-const setup = (guessedWords = [], language='en') => {
+const setup = (guessedWords = [], language = 'en') => {
   const mockUseGuessedWords = jest.fn().mockReturnValue([guessedWords, jest.fn()]);
-
   const mockUselanguage = jest.fn().mockReturnValue([language, jest.fn()])
 
   return mount(
@@ -30,7 +66,7 @@ const setup = (guessedWords = [], language='en') => {
 describe('if there are no words guessed', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = setup([]);
+    wrapper = setup();
   });
   test('renders without error', () => {
     const component = findByTestAttribute(wrapper, 'component-guessed-words');
@@ -39,17 +75,11 @@ describe('if there are no words guessed', () => {
   test('renders instructions to guess a word', () => {
     const instructions = findByTestAttribute(wrapper, 'guess-instructions');
     expect(instructions.text().length).not.toBe(0);
-
   })
 });
+
 describe('if there are words guessed', () => {
   let wrapper;
-  const guessedWords = [
-    { guessedWord: 'train', letterMatchCount: 3 },
-    { guessedWord: 'agile', letterMatchCount: 1 },
-    { guessedWord: 'party', letterMatchCount: 5 },
-  ]
-
   beforeEach(() => {
     wrapper = setup(guessedWords);
   })
@@ -74,10 +104,9 @@ describe('LanguagePicker', () => {
     const guessInstructions = findByTestAttribute(wrapper, 'guess-instructions');
     expect(guessInstructions.text()).toContain('guess')
   })
-  test('correctly renders guess instructions string in French', () => {    
+  test('correctly renders guess instructions string in French', () => {
     const wrapper = setup([], 'fr');
     const guessInstructions = findByTestAttribute(wrapper, 'guess-instructions');
-
     expect(guessInstructions.text()).toContain('deviner');
   })
 })

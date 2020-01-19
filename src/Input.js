@@ -1,11 +1,11 @@
 import React from 'react';
-import Proptypes, { string } from 'prop-types';
+import Proptypes from 'prop-types';
 
 import guessedWordsContext from './contexts/guessedWordsContext';
 import languageContext from './contexts/languageContext';
 import successContext from './contexts/successContext';
 import stringsModule from './helpers/strings';
-import { getLetterMatchCount } from './helpers';
+import { getMatchingLetters } from './helpers';
 
 const Input = ({ secretWord }) => {
   const [language] = languageContext.useLanguage();
@@ -23,8 +23,8 @@ const Input = ({ secretWord }) => {
     if (currentGuess === secretWord) setSuccess(true);
 
     // update guessedWords context with new entry
-    const letterMatchCount = getLetterMatchCount(currentGuess, secretWord);
-    const newGuessedWords = [...guessedWords, { guessedWord: currentGuess, letterMatchCount }];
+    const matchingLetters = getMatchingLetters(currentGuess, secretWord);
+    const newGuessedWords = [...guessedWords, { guessedWord: currentGuess, matchingLetters }];
     setGuessedWords(newGuessedWords);
 
     // clear input box
@@ -42,6 +42,7 @@ const Input = ({ secretWord }) => {
             data-test="input-box"
             className="form-control"
             type="text"
+            maxLength="5"
             placeholder={stringsModule.getStringByLanguage(language, 'guessInputPlaceholder')}
             value={currentGuess}
             onChange={(event) => setCurrentGuess(event.target.value)}
@@ -49,7 +50,7 @@ const Input = ({ secretWord }) => {
           <div className="input-group-append">
             <button
               data-test="submit-button"
-              className="btn btn-outline-secondary"
+              className="btn btn-secondary"
               type="submit"
               onClick={handleClick}
             >

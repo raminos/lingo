@@ -1,4 +1,5 @@
 import React from 'react';
+//component css
 import './App.css';
 
 // helpers
@@ -29,7 +30,7 @@ const App = ({ initialState }) => {
       hookActions.getSecretWord(setSecretWord, language);
 
       setGuessedWords([])
-    }, [language]
+    }, [language, setGuessedWords]
   );
 
   return (
