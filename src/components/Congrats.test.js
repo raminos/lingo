@@ -1,11 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { findByTestAttribute } from '../test/testUtilities';
+import { findByTestAttribute } from '../../test/testUtilities';
 import Congrats from './Congrats';
 
-import languageContext from './contexts/languageContext';
-import successContext from './contexts/successContext';
+import languageContext from '../contexts/languageContext';
+import successContext from '../contexts/successContext';
 
 /**
  * Factory function to create a ShallowWrapper for the Congrats component.

@@ -1,12 +1,12 @@
 import React from 'react';
 // test utilities and modules
 import { mount } from 'enzyme';
-import { findByTestAttribute } from '../test/testUtilities';
+import { findByTestAttribute } from '../../test/testUtilities';
 // component
 import GuessedWords from './GuessedWords';
 // needed contexts
-import guessedWordsContext from './contexts/guessedWordsContext';
-import languageContext from './contexts/languageContext';
+import guessedWordsContext from '../contexts/guessedWordsContext';
+import languageContext from '../contexts/languageContext';
 // mock data
 const guessedWords = [
   {

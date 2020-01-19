@@ -1,7 +1,7 @@
 import React from 'react';
 
-import languageContext from './contexts/languageContext';
-import stringModule from './helpers/strings';
+import languageContext from '../contexts/languageContext';
+import stringModule from '../helpers/strings';
 
 const Spinner = () => {
   const [language] = languageContext.useLanguage();

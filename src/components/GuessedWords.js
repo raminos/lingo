@@ -1,9 +1,9 @@
 import React from 'react';
 import './GuessedWords.css';
 
-import guessedWordsContext from './contexts/guessedWordsContext';
-import languageContext from './contexts/languageContext';
-import stringModule from './helpers/strings';
+import guessedWordsContext from '../contexts/guessedWordsContext';
+import languageContext from '../contexts/languageContext';
+import stringModule from '../helpers/strings';
 
 const GuessedWords = () => {
   const [guessedWords] = guessedWordsContext.useGuessedWords();

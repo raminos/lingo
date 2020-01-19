@@ -1,6 +1,6 @@
 import React from 'react';
-import languageContext from './contexts/languageContext';
-import successContext from './contexts/successContext';
+import languageContext from '../contexts/languageContext';
+import successContext from '../contexts/successContext';
 
 const LanguagePicker = () => {
   const [language, setLanguage] = languageContext.useLanguage();

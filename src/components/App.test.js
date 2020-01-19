@@ -1,10 +1,10 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { findByTestAttribute } from '../test/testUtilities';
+import { findByTestAttribute } from '../../test/testUtilities';
 import App from './App';
 
-import hookActions from './actions/hookActions';
-import AppContext from './contexts';
+import hookActions from '../actions/hookActions';
+import AppContext from '../contexts';
 import { act } from 'react-dom/test-utils';
 
 const mockGetSecretWord = jest.fn();

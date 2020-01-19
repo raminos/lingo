@@ -1,11 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { findByTestAttribute, checkProps } from '../test/testUtilities';
+import { findByTestAttribute, checkProps } from '../../test/testUtilities';
 import Input from './Input';
 
-import languageContext from './contexts/languageContext';
-import successContext from './contexts/successContext';
-import guessedWordsContext from './contexts/guessedWordsContext';
+import languageContext from '../contexts/languageContext';
+import successContext from '../contexts/successContext';
+import guessedWordsContext from '../contexts/guessedWordsContext';
 
 /**
  * Setup function to test the input component using a ReactWrapper.

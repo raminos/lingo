@@ -1,9 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { findByTestAttribute } from '../test/testUtilities';
+import { findByTestAttribute } from '../../test/testUtilities';
 
 import Spinner from './Spinner';
-import languageContext from './contexts/languageContext';
+import languageContext from '../contexts/languageContext';
 
 const setup = (language = 'en') => {
   const wrapper = mount(

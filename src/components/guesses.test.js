@@ -1,10 +1,10 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { findByTestAttribute } from '../test/testUtilities';
+import { findByTestAttribute } from '../../test/testUtilities';
 
-import guessedWordsContext from './contexts/guessedWordsContext';
-import successContext from './contexts/successContext';
-import languageContext from './contexts/languageContext';
+import guessedWordsContext from '../contexts/guessedWordsContext';
+import successContext from '../contexts/successContext';
+import languageContext from '../contexts/languageContext';
 
 import Input from './Input';
 import GuessedWords from './GuessedWords';

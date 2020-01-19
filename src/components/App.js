@@ -3,11 +3,11 @@ import React from 'react';
 import './App.css';
 
 // helpers
-import hookActions from './actions/hookActions';
+import hookActions from '../actions/hookActions';
 
 // contexts
-import languageContext from './contexts/languageContext';
-import guessedWordsContext from './contexts/guessedWordsContext';
+import languageContext from '../contexts/languageContext';
+import guessedWordsContext from '../contexts/guessedWordsContext';
 
 // components
 import GuessedWords from './GuessedWords';

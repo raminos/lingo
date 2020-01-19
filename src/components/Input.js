@@ -1,11 +1,11 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 
-import guessedWordsContext from './contexts/guessedWordsContext';
-import languageContext from './contexts/languageContext';
-import successContext from './contexts/successContext';
-import stringsModule from './helpers/strings';
-import { getMatchingLetters } from './helpers';
+import guessedWordsContext from '../contexts/guessedWordsContext';
+import languageContext from '../contexts/languageContext';
+import successContext from '../contexts/successContext';
+import stringsModule from '../helpers/strings';
+import { getMatchingLetters } from '../helpers';
 
 const Input = ({ secretWord }) => {
   const [language] = languageContext.useLanguage();

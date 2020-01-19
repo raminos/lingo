@@ -1,8 +1,8 @@
 import React from 'react';
-import stringModule from './helpers/strings.js'
+import stringModule from '../helpers/strings.js'
 import ReactHtmlParser from 'react-html-parser';
 
-import languageContext from './contexts/languageContext';
+import languageContext from '../contexts/languageContext';
 
 const Description = () => {
   const [language] = languageContext.useLanguage();
