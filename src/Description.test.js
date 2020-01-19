@@ -4,28 +4,28 @@ import { findByTestAttribute } from '../test/testUtilities';
 
 import languageContext from './contexts/languageContext';
 
-import Subheading from './Subheading';
+import Description from './Description';
 
 const setup = (language = 'en') => {
   const wrapper = mount(
     <languageContext.LanguageProvider value={[language, jest.fn()]}>
-      <Subheading />
+      <Description />
     </languageContext.LanguageProvider>
   );
 
-  const component = findByTestAttribute(wrapper, 'component-subheading');
+  const component = findByTestAttribute(wrapper, 'component-description');
   return component;
 }
 
 test('renders without errors', () => {
-  const subheadingComponent = setup();
-  expect(subheadingComponent.exists()).toBe(true);
+  const descriptionComponent = setup();
+  expect(descriptionComponent.exists()).toBe(true);
 });
 test('displays text by default in English', () => {
-  const subheadingComponent = setup();
-  expect(subheadingComponent.text()).toMatch(/game/i);
+  const descriptionComponent = setup();
+  expect(descriptionComponent.text()).toMatch(/game/i);
 });
 test('displays expected text in French', () => {
-  const subheadingComponent = setup('fr');
-  expect(subheadingComponent.text()).toMatch(/jeu/i);
+  const descriptionComponent = setup('fr');
+  expect(descriptionComponent.text()).toMatch(/jeu/i);
 });

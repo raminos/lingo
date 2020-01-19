@@ -14,7 +14,7 @@ import GuessedWords from './GuessedWords';
 import Congrats from './Congrats';
 import Input from './Input';
 import LanguagePicker from './LanguagePicker';
-import Subheading from './Subheading';
+import Description from './Description';
 import Nav from './Nav';
 import Spinner from './Spinner';
 
@@ -42,7 +42,7 @@ const App = ({ initialState }) => {
         <Nav>
           <LanguagePicker />
         </Nav>
-        <Subheading />
+        <Description />
         <Congrats />
 
         {secretWord ?

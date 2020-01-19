@@ -4,16 +4,16 @@ import ReactHtmlParser from 'react-html-parser';
 
 import languageContext from './contexts/languageContext';
 
-const Subheading = () => {
+const Description = () => {
   const [language] = languageContext.useLanguage();
   return (
     <p
       className="text-justify"
-      data-test="component-subheading"
+      data-test="component-description"
     >
-      {ReactHtmlParser(stringModule.getStringByLanguage(language, 'subheading'))}
+      {ReactHtmlParser(stringModule.getStringByLanguage(language, 'description'))}
     </p>
   )
 };
 
-export default Subheading;
+export default Description;
