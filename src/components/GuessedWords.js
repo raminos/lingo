@@ -8,7 +8,14 @@ import stringModule from '../helpers/strings';
 const GuessedWords = () => {
   const [guessedWords] = guessedWordsContext.useGuessedWords();
   const [language] = languageContext.useLanguage();
+  const [visible, setVisibility] = React.useState(true);
   let contents;
+
+  React.useEffect(
+    () => {
+      setVisibility(true);
+    }, [language]
+  );
 
   if (guessedWords.length === 0) {
     contents = (
@@ -64,7 +71,20 @@ const GuessedWords = () => {
 
     contents = (
       <div data-test="guessed-words">
-        <h3>{stringModule.getStringByLanguage(language, 'guessColumnHeader')}</h3>
+        {visible &&
+          <div class="alert alert-warning alert-dismissible" role="alert">
+            {stringModule.getStringByLanguage(language, 'tableExplanation')}
+            <button
+              type="button"
+              className="close"
+              onClick={() => setVisibility(false)}>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        }
+        <h3 className="mb-3">
+          {stringModule.getStringByLanguage(language, 'guessColumnHeader')}
+        </h3>
         <div className="table-wrapper">
           <table className="table text-center">
             <thead className="thead-light">
@@ -88,6 +108,7 @@ const GuessedWords = () => {
 
   return (
     <div data-test="component-guessed-words">
+
       {contents}
     </div>
   );

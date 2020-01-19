@@ -5,7 +5,7 @@ import { findByTestAttribute } from '../../test/testUtilities';
 import Congrats from './Congrats';
 
 import languageContext from '../contexts/languageContext';
-import successContext from '../contexts/successContext';
+import performanceContext from '../contexts/performanceContext';
 
 /**
  * Factory function to create a ShallowWrapper for the Congrats component.
@@ -13,15 +13,15 @@ import successContext from '../contexts/successContext';
  * @param {object} [testValues] - Context values specific to this setup.
  * @returns {ShallowWrapper} 
  */
-const setup = ({ success, language }) => {
+const setup = ({ performance, language }) => {
   language = language || 'en';
-  success = success || false;
+  performance = performance || { success: true };
 
   return mount(
     <languageContext.LanguageProvider value={[language, jest.fn()]}>
-      <successContext.SuccessProvider value={[success, jest.fn()]}>
+      <performanceContext.PerformanceProvider value={[performance, jest.fn()]}>
         <Congrats />
-      </successContext.SuccessProvider>
+      </performanceContext.PerformanceProvider>
     </languageContext.LanguageProvider>
   )
 }
@@ -31,24 +31,24 @@ test('renders without errors', () => {
   const component = findByTestAttribute(wrapper, 'component-congrats');
   expect(component.length).toBe(1);
 });
-test('renders no text when `success` is false', () => {
-  const wrapper = setup({ success: false });
+test('does not render when `success` is false', () => {
+  const wrapper = setup({ performance: { success: false } });
   const component = findByTestAttribute(wrapper, 'component-congrats');
-  expect(component.text()).toBe('');
+  expect(component.length).toBe(0);
 });
 test('renders non-empty congrats message when `success` is true', () => {
-  const wrapper = setup({ success: true });
+  const wrapper = setup({ performance: { success: true } });
   const component = findByTestAttribute(wrapper, 'congrats-message');
   expect(component.text().length).not.toBe(0);
 });
 
 describe('LanguagePicker', () => {
   test('correctly renders congrats string in english', () => {
-    const wrapper = setup({ success: true });
+    const wrapper = setup({ performance: { success: true } });
     expect(wrapper.text()).toContain('Congratulations')
   });
   test('correctly renders congrats string in French', () => {
-    const wrapper = setup({ success: true, language: 'fr' });
+    const wrapper = setup({ performance: { success: true } , language: 'fr' });
     expect(wrapper.text()).toContain('deviné');
   });
 });

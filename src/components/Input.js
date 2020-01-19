@@ -3,24 +3,42 @@ import Proptypes from 'prop-types';
 
 import guessedWordsContext from '../contexts/guessedWordsContext';
 import languageContext from '../contexts/languageContext';
-import successContext from '../contexts/successContext';
+import performanceContext from '../contexts/performanceContext';
 import stringsModule from '../helpers/strings';
 import { getMatchingLetters } from '../helpers';
 
 const Input = ({ secretWord }) => {
   const [language] = languageContext.useLanguage();
-  const [success, setSuccess] = successContext.useSuccess();
+  const [performance, setPerformance] = performanceContext.usePerformance();
   const [guessedWords, setGuessedWords] = guessedWordsContext.useGuessedWords();
   const [currentGuess, setCurrentGuess] = React.useState("");
 
-  if (success) return null;
+  if (performance.success || performance.giveUp) return null;
+
+  const isOnlyLetters = (string) => {
+    const allowedCharacters = /^[a-zA-ZßüÜöÖäÄáàéèìíúêçëîïûùœâ´`^]*$/i
+    
+    if (string.match(allowedCharacters)) return true;
+    else return false;
+  }
+
+  const isFiveLettersLong = () => {
+    if (currentGuess.length === 5 ) return true;
+    else return false;
+  }
+
+  const handleChange = (event) => {
+    if (isOnlyLetters(event.target.value))
+      return setCurrentGuess(event.target.value);
+  }
 
   const handleClick = (event) => {
     event.preventDefault();
     // return in case of empty submit
-    if (currentGuess === '') return null;
+    if (currentGuess.length < 5) return null;
+
     // show Congrats component in case of correctly guessed word
-    if (currentGuess === secretWord) setSuccess(true);
+    if (currentGuess === secretWord) setPerformance({ type: 'success' });
 
     // update guessedWords context with new entry
     const matchingLetters = getMatchingLetters(currentGuess, secretWord);
@@ -32,34 +50,33 @@ const Input = ({ secretWord }) => {
   }
 
   return (
-    <form>
-      <div
-        className="row justify-content-center"
+    <div className="col-9 mr-4">
+      <form
         data-test="component-input"
       >
-        <div className="input-group my-3 col-8 ">
+        <div className="input-group mx-3">
           <input
             data-test="input-box"
-            className="form-control"
+            className="form-control input-medium"
             type="text"
             maxLength="5"
             placeholder={stringsModule.getStringByLanguage(language, 'guessInputPlaceholder')}
             value={currentGuess}
-            onChange={(event) => setCurrentGuess(event.target.value)}
+            onChange={(event) => handleChange(event)}
           />
           <div className="input-group-append">
             <button
               data-test="submit-button"
-              className="btn btn-secondary"
+              className={`btn btn-secondary ${isFiveLettersLong()? '' : 'disabled'}`} 
               type="submit"
-              onClick={handleClick}
+              onClick={(event) => handleClick(event)}
             >
               {stringsModule.getStringByLanguage(language, 'submit')}
             </button>
           </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 };
 

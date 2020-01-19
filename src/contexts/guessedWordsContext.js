@@ -13,7 +13,7 @@ const useGuessedWords = () => {
   const context = React.useContext(guessedWordsContext);
 
   if(!context) {
-    throw new Error('useGuessedWords must be used within a GuessedWordsProvider');
+    throw new Error('Error: useGuessedWords must be used within a GuessedWordsProvider');
   }
 
   return context;

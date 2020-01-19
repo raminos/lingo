@@ -1,6 +1,5 @@
 import React from 'react';
 import stringModule from '../helpers/strings.js'
-import ReactHtmlParser from 'react-html-parser';
 
 import languageContext from '../contexts/languageContext';
 
@@ -11,7 +10,7 @@ const Description = () => {
       className="text-justify"
       data-test="component-description"
     >
-      {ReactHtmlParser(stringModule.getStringByLanguage(language, 'description'))}
+      {stringModule.getStringByLanguage(language, 'description')}
     </p>
   )
 };

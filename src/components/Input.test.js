@@ -4,7 +4,7 @@ import { findByTestAttribute, checkProps } from '../../test/testUtilities';
 import Input from './Input';
 
 import languageContext from '../contexts/languageContext';
-import successContext from '../contexts/successContext';
+import performanceContext from '../contexts/performanceContext';
 import guessedWordsContext from '../contexts/guessedWordsContext';
 
 /**
@@ -12,18 +12,18 @@ import guessedWordsContext from '../contexts/guessedWordsContext';
  * @param {object} testValues - Context and props values for this specific test.
  * @returns {ShallowWrapper} - ReactWrapper for Input component and providers
  */
-const setup = ({ language, secretWord, success }) => {
+const setup = ({ language, secretWord, performance }) => {
   language = language || 'en';
   secretWord = secretWord || 'party';
-  success = success || false;
+  performance = performance || { success: false };
 
   return mount(
     <languageContext.LanguageProvider value={[language, jest.fn]} >
-      <successContext.SuccessProvider value={[success, jest.fn()]}>
+      <performanceContext.PerformanceProvider value={[performance, jest.fn()]}>
         <guessedWordsContext.GuessedWordsProvider>
           <Input secretWord={secretWord} />
         </guessedWordsContext.GuessedWordsProvider>
-      </successContext.SuccessProvider>
+      </performanceContext.PerformanceProvider>
     </languageContext.LanguageProvider>
   )
 }
@@ -49,7 +49,7 @@ describe('state controlled input field', () => {
   })
   test('state updates with value of input box upon change', () => {
     const inputBox = findByTestAttribute(wrapper, 'input-box');
-    
+
     inputBox.simulate('change', mockEvent);
     expect(mockSetCurrentGuess).toHaveBeenCalledWith('train');
   });
@@ -69,6 +69,6 @@ describe('LanguagePicker', () => {
 });
 
 test('Input component does not show when success is true', () => {
-  const wrapper = setup({ secretWord: 'party', success: true });
+  const wrapper = setup({ secretWord: 'party', performance: { success: true } });
   expect(wrapper.isEmptyRender()).toBe(true);
 });

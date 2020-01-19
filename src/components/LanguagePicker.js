@@ -1,10 +1,10 @@
 import React from 'react';
 import languageContext from '../contexts/languageContext';
-import successContext from '../contexts/successContext';
+import performanceContext from '../contexts/performanceContext';
 
 const LanguagePicker = () => {
   const [language, setLanguage] = languageContext.useLanguage();
-  const setSuccess = successContext.useSuccess()[1];
+  const setPerformance = performanceContext.usePerformance()[1];
   const languages = [
     { code: 'en', symbol: '🇺🇸' },
     { code: 'fr', symbol: '🇫🇷' },
@@ -20,7 +20,7 @@ const LanguagePicker = () => {
 
     const handleClick = () => {
       setLanguage(lang.code);
-      setSuccess(false);
+      setPerformance({ type: 'reset'});
     }
 
     return (

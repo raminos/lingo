@@ -1,6 +1,5 @@
 import React from 'react';
 
-import successContext from '../contexts/successContext';
 import languageContext from '../contexts/languageContext';
 import stringsModule from '../helpers/strings';
 
@@ -11,10 +10,8 @@ import stringsModule from '../helpers/strings';
  * @returns {JSX.Element} - Rendered component (or null is 'success' prop is false)
  */
 const Congrats = () => {
-  const [success] = successContext.useSuccess();
   const [language] = languageContext.useLanguage();
 
-  if (success) {
     return (
       <div
         data-test="component-congrats"
@@ -25,9 +22,6 @@ const Congrats = () => {
         </span>
       </div>
     )
-  } else {
-    return <div data-test="component-congrats" />
-  }
 };
 
 export default Congrats;

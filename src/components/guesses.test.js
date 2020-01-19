@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { findByTestAttribute } from '../../test/testUtilities';
 
 import guessedWordsContext from '../contexts/guessedWordsContext';
-import successContext from '../contexts/successContext';
+import performanceContext from '../contexts/performanceContext';
 import languageContext from '../contexts/languageContext';
 
 import Input from './Input';
@@ -12,14 +12,14 @@ import GuessedWords from './GuessedWords';
 const setup = (guessedWordsStrings = [], secretWord = 'party') => {
   const wrapper = mount(
     <languageContext.LanguageProvider>
-      <successContext.SuccessProvider>
+      <performanceContext.PerformanceProvider>
         <guessedWordsContext.GuessedWordsProvider>
 
           <Input secretWord={secretWord} />
           <GuessedWords />
 
         </guessedWordsContext.GuessedWordsProvider>
-      </successContext.SuccessProvider>
+      </performanceContext.PerformanceProvider>
     </languageContext.LanguageProvider>
   );
 

@@ -12,7 +12,7 @@ const useLanguage = () => {
   const context = React.useContext(languageContext);
 
   if(!context) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
+    throw new Error('Error: useLanguage must be used within a LanguageProvider');
   }
 
   return context;

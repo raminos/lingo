@@ -4,17 +4,17 @@ import { findByTestAttribute } from '../../test/testUtilities';
 
 import LanguagePicker from './LanguagePicker';
 import languageContext from '../contexts/languageContext';
-import successContext from '../contexts/successContext';
+import performanceContext from '../contexts/performanceContext';
 
 const mockUseLanguage = jest.fn().mockReturnValue([null, jest.fn()]);
 
 const setup = () => {
   return mount(
-    <successContext.SuccessProvider>
+    <performanceContext.PerformanceProvider>
       <languageContext.LanguageProvider value={mockUseLanguage()}>
         <LanguagePicker />
       </languageContext.LanguageProvider>
-    </successContext.SuccessProvider>
+    </performanceContext.PerformanceProvider>
   );
 }
 

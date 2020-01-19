@@ -14,7 +14,7 @@ const Spinner = () => {
         <div className="row">
           <div className="">
             <div
-              className="spinner-border mx-5 text-muted"
+              className="spinner-grow mx-5 text-muted"
               role="status"
             >
               <span className="sr-only">
