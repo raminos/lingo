@@ -1,24 +1,51 @@
 import React from 'react';
+// css
 import './GuessedWords.css';
-
+// contexts
 import guessedWordsContext from '../contexts/guessedWordsContext';
 import languageContext from '../contexts/languageContext';
 import stringModule from '../helpers/strings';
 
+
 const GuessedWords = () => {
   const [guessedWords] = guessedWordsContext.useGuessedWords();
   const [language] = languageContext.useLanguage();
-  const [visible, setVisibility] = React.useState(true);
-  let contents;
+  let componentContent;
 
-  React.useEffect(
-    () => {
-      setVisibility(true);
-    }, [language]
-  );
+  const createGuessedWordTableRow = (guessedWord, wordLength) => {
+    const letterJsxArray = []
+
+    for (let i = 0; i < wordLength; i++) {
+      if (guessedWord.matchingLetters.matchingPositions[i]) {
+
+        letterJsxArray.push(
+          <span className="badge badge-success">
+            {guessedWord.matchingLetters.matchingPositions[i]}
+          </span>
+        );
+      } else if (guessedWord.matchingLetters.notMatchingPositions[i]) {
+
+        letterJsxArray.push(
+          <span className="badge badge-info">
+            {guessedWord.matchingLetters.notMatchingPositions[i]}
+          </span>
+        );
+      } else {
+
+        letterJsxArray.push(
+          <span className="badge badge-dark">
+            {[...guessedWord.guessedWord][i]}
+          </span>
+        );
+      }
+    }
+    return letterJsxArray.map((jsxLetter, letterIndex) => (
+      <td key={letterIndex}>{jsxLetter}</td>
+    ));
+  }
 
   if (guessedWords.length === 0) {
-    contents = (
+    componentContent = (
       <p
         className="lead text-info text-center"
         data-test="guess-instructions">
@@ -26,62 +53,21 @@ const GuessedWords = () => {
       </p>
     )
   } else {
-    const guessedWordsRows = guessedWords.map((word, index) => {
-      const tableDataArray = [];
-
-      for (let key = 0; key < 5; key++) {
-        if (word.matchingLetters.matchingPositions[key]) {
-          tableDataArray.push(
-            <span className="badge badge-success">
-              {word.matchingLetters.matchingPositions[key]}
-            </span>
-          );
-        } else if (word.matchingLetters.notMatchingPositions[key]) {
-          tableDataArray.push(
-            <span className="badge badge-info">
-              {word.matchingLetters.notMatchingPositions[key]}
-            </span>
-          );
-        } else {
-          tableDataArray.push(
-            <span className="badge badge-dark">
-              {[...word.guessedWord][key]}
-            </span>
-          );
-        }
-      }
+    const guessedWordsRows = guessedWords.map((guessedWord, index) => {
+      const guessedWordRow = createGuessedWordTableRow(guessedWord, 5);
       return (
-        <tr
-          data-test="guessed-word"
-          key={index}
-        >
+        <tr data-test="guessed-word" key={index}>
           <td>
             <span className="badge badge-light">
               {index + 1}
             </span>
           </td>
-          {
-            tableDataArray.map((entry, entryIndex) =>
-              <td key={entryIndex}>{entry}</td>
-            )
-          }
+          {guessedWordRow}
         </tr>
       )
     });
-
-    contents = (
+    componentContent = (
       <div data-test="guessed-words">
-        {visible &&
-          <div class="alert alert-warning alert-dismissible" role="alert">
-            {stringModule.getStringByLanguage(language, 'tableExplanation')}
-            <button
-              type="button"
-              className="close"
-              onClick={() => setVisibility(false)}>
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        }
         <h3 className="mb-3">
           {stringModule.getStringByLanguage(language, 'guessColumnHeader')}
         </h3>
@@ -108,8 +94,7 @@ const GuessedWords = () => {
 
   return (
     <div data-test="component-guessed-words">
-
-      {contents}
+      {componentContent}
     </div>
   );
 };
