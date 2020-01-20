@@ -1,12 +1,12 @@
 # Lingo
 ## Abstract
-This is a SPA version of the dutch television game Lingo. It is translated into three languages and offers own sets of words for each.
+This is a SPA version of the dutch television game Lingo. It is translated into three languages and offers own sets of words for each. For more details about the game: [Wikipedia](https://en.wikipedia.org/wiki/Lingo_(Dutch_game_show))
 
 ## Technologies
  - React
  - Enzyme
- - Express
  - Bootstrap
+ - (Express)
 
 ## Set Up
 Until now you would need a server that serves five letter words to the application. (I will upload mine soon)
@@ -24,4 +24,4 @@ To run the tests use `npm test`.
 ![Fourth Screenshot](./images/lingo-4.png)
 
 ## Kudos
-This project is built with create-react-app. Also it is based on test driven development practices taught by Bonnie Schulkin.
+This project is build with create-react-app. Also it is based on test driven development practices taught by Bonnie Schulkin.
