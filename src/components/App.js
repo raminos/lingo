@@ -4,7 +4,6 @@ import './App.css';
 
 // helpers
 import hookActions from '../actions/hookActions';
-import stringModule from '../helpers/strings';
 
 // contexts
 import languageContext from '../contexts/languageContext';
@@ -22,13 +21,13 @@ import Spinner from './Spinner';
 import GiveUpButton from './GiveUpButton';
 import GiveUpMessage from './GiveUpMessage';
 import TryAgainButton from './TryAgainButton';
+import Explanation from './Explanation';
 
 const App = ({ initialState = null }) => {
   const [performance] = performanceContext.usePerformance();
   const [secretWord, setSecretWord] = React.useState(initialState);
   const [language] = languageContext.useLanguage();
-  const setGuessedWords = guessedWordsContext.useGuessedWords()[1];
-  let performanceDependendContent
+  const [guessedWords, setGuessedWords] = guessedWordsContext.useGuessedWords();
 
   React.useEffect(
     () => {
@@ -39,30 +38,33 @@ const App = ({ initialState = null }) => {
     }, [language, setGuessedWords, performance]
   );
 
+  const performanceDependendContent = () => {
+    if (performance.success) return (
+      <>
+        <Congrats />
+        <TryAgainButton />
+      </>
+    )
 
+    else if (performance.giveUp) return (
+      <>
+        <GiveUpMessage>
+          {secretWord}
+        </GiveUpMessage>
+        <TryAgainButton />
+      </>
+    );
 
-  if (performance.success) performanceDependendContent = <Congrats />;
-  else if (performance.giveUp) performanceDependendContent = (
-
-    <GiveUpMessage>
-      {`${stringModule.getStringByLanguage(language, 'secretWordSpoiler')} ${secretWord}`}
-    </GiveUpMessage>
-  );
-  else {
-    performanceDependendContent = (
+    else return (
       <div className="d-flex offset-1 justify-content-center my-4">
         <Input secretWord={secretWord} />
         <GiveUpButton />
       </div>
-    )
+    );
   }
 
-
   return (
-    <div
-      data-test="component-app"
-      className="container px-5"
-    >
+    <div data-test="component-app" className="container px-5">
       <div className="row">
         <div className="col-12 mt-3">
           <Nav>
@@ -71,10 +73,7 @@ const App = ({ initialState = null }) => {
           <Description />
           {secretWord ?
             <div className="text-center my-3">
-              {performanceDependendContent}
-              {(performance.success || performance.giveUp) &&
-                <TryAgainButton />
-              }
+              {performanceDependendContent()}
             </div>
             :
             <Spinner />
@@ -83,6 +82,12 @@ const App = ({ initialState = null }) => {
       </div>
       <div className="row">
         <div className="col">
+          {
+            !performance.success &&
+            !performance.giveUp &&
+            (guessedWords.length !== 0) &&
+            <Explanation />
+          }
           <GuessedWords />
         </div>
       </div>

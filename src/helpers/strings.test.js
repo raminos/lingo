@@ -1,11 +1,9 @@
-import stringsModule from './strings';
-import { findByTestAttribute } from '../../test/testUtilities';
-const { getStringByLanguage } = stringsModule;
+import stringModule from './strings';
+const { getStringByLanguage } = stringModule;
 
 const strings = {
   en: { submit: 'submit' },
-  emoji: { submit: '🚀' },
-  mermish: {},
+  fr: { submit: 'Soumettre'},
 }
 
 describe('language string testing', () => {
@@ -23,19 +21,19 @@ describe('language string testing', () => {
 
   test('returns correct submit string for english', () => {
     const string = getStringByLanguage('en', 'submit', strings);
-    expect(string).toBe('submit');
+    expect(string).toContain('submit');
 
   });
-  test('returns the correct submit string for emoji', () => {
-    const string = getStringByLanguage('emoji', 'submit', strings);
-    expect(string).toBe('🚀');
+  test('returns the correct submit string for french', () => {
+    const string = getStringByLanguage('fr', 'submit', strings);
+    expect(string).toContain('Soumettre');
   });
   test('returns english submit string when language does not exsits', () => {
     const string = getStringByLanguage('notALanguage', 'submit', strings);
-    expect(string).toBe('submit');
+    expect(string).toContain('submit');
   });
   test('returns english submit string when submit key does not exist for language', () => {
-    const string = getStringByLanguage('mermish', 'submit', strings);
-    expect(string).toBe('submit');
+    const string = getStringByLanguage('jp', 'submit', strings);
+    expect(string).toContain('submit');
   });
 })

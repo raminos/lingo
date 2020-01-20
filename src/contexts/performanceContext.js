@@ -23,7 +23,7 @@ const reducer = (state, action) => {
   switch (action.type) {
     case 'success':
       return { ...state, success: true };
-    case 'giveUp':
+    case 'give_up':
       return { ...state, giveUp: true };
     case 'reset':
       

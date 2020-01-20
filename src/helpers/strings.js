@@ -15,6 +15,7 @@ const languageStrings = {
     giveUpMessage: "Oh no! Sadly, you've decided to end the game! Maybe the word was too difficult? You could give it another try. This time it will definitely be easier. Promised!",
     tryAgainButton: "Try Again",
     tableExplanation: "⬛️ The black squares indicate that the letter doesn't match any letter of the secret word. <br> 🟦 The blue squares indicate that there is a matching letter in another position. <br> 🟩 The green squares indicate that the letter matches the position in the secret word.",
+    tableExplanationHeading: 'Explanation',
     secretWordSpoiler: "The secret word is:"
   },
   fr: {
@@ -31,6 +32,7 @@ const languageStrings = {
     giveUpMessage: "Oh non! Malheureusement, vous avez décidé d'arrêter le jeu! Peut-être que le mot était trop dur à trouver? Vous pouvez faire un nouvel essai. Cette fois ce sera assurément plus facile. Promis!",
     tryAgainButton: "Essayer à nouveau",
     tableExplanation: "⬛️ Les carrés noirs signifient que la lettre ne fait pas partie du mot secret. <br> 🟦 Les carrés bleus signifient que cette lettre fait partie du mot secret, mais à une place différente. <br> 🟩 Les carrés verts signifient que la lettre est à la même place dans le mot secret.",
+    tableExplanationHeading: 'Explication',
     secretWordSpoiler: "Le mot secret est :"
   },
   de: {
@@ -46,11 +48,18 @@ const languageStrings = {
     giveUpButton: "Aufgeben",
     giveUpMessage: "Oh nein! Leider haben Sie sich dazu entschieden das Spiel zu beenden! War es zu schwer? Sie könnten es noch einmal probieren. Dieses Mal wird es definitiv leichter. Versprochen!",
     tryAgainButton: "Erneut versuchen",
-    tableExplanation: "⬛️ Schwarzen Vierecke zeigen an, dass dieser Buchstabe nich im geheimen Wort vorkommt. <br> 🟦 Blauen Vierecke zeigen an, dass der Buchstabe im geheimen Wort vorkommt, jedoch an einer anderen Stelle. <br> 🟩 Grüne Vierecke zeigen an, dass der Buchstabe im geheimen Wort an derselben Stelle liegt.",
+    tableExplanation: "⬛️ Schwarze Vierecke zeigen an, dass dieser Buchstabe nicht im geheimen Wort vorkommt. <br> 🟦 Blaue Vierecke zeigen an, dass der Buchstabe im geheimen Wort vorkommt, jedoch an einer anderen Stelle liegt. <br> 🟩 Grüne Vierecke zeigen an, dass der Buchstabe im geheimen Wort an der gleichen Stelle liegt.",
+    tableExplanationHeading: 'Erklärung',
     secretWordSpoiler: "Das geiheime Wort lautet:"
   },
 };
-
+/**
+ * getter function for an object that holds translated strings ordered by language
+ * @param {string} languageCode - key for the needed language subset from 'strings'.
+ * @param {string} stringKey - key who's value needs to be extraced from 'strings'.
+ * @param {object} strings - Object that holds the strings needed
+ * @returns {JSX.Element} - returns JSX to include html tags inside the strings.
+ */
 const getStringByLanguage = (languageCode, stringKey, strings = languageStrings) => {
   if (!strings[languageCode] || !strings[languageCode][stringKey]) {
     console.warn(`Could not get string '${stringKey}' for '${languageCode}'`);
@@ -62,5 +71,5 @@ const getStringByLanguage = (languageCode, stringKey, strings = languageStrings)
 };
 
 export default {
-  getStringByLanguage,
+  getStringByLanguage
 }

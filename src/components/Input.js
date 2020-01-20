@@ -4,7 +4,7 @@ import Proptypes from 'prop-types';
 import guessedWordsContext from '../contexts/guessedWordsContext';
 import languageContext from '../contexts/languageContext';
 import performanceContext from '../contexts/performanceContext';
-import stringsModule from '../helpers/strings';
+import stringModule from '../helpers/strings';
 import { getMatchingLetters } from '../helpers';
 
 const Input = ({ secretWord }) => {
@@ -60,7 +60,7 @@ const Input = ({ secretWord }) => {
             className="form-control input-medium"
             type="text"
             maxLength="5"
-            placeholder={stringsModule.getStringByLanguage(language, 'guessInputPlaceholder')}
+            placeholder={stringModule.getStringByLanguage(language, 'guessInputPlaceholder')}
             value={currentGuess}
             onChange={(event) => handleChange(event)}
           />
@@ -71,7 +71,7 @@ const Input = ({ secretWord }) => {
               type="submit"
               onClick={(event) => handleClick(event)}
             >
-              {stringsModule.getStringByLanguage(language, 'submit')}
+              {stringModule.getStringByLanguage(language, 'submit')}
             </button>
           </div>
         </div>

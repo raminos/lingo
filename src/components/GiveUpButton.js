@@ -15,7 +15,7 @@ const GiveUpButton = () => {
   let disabled = (guessedWords.length < 1) ? true : false;
 
   const handleClick = () => {
-    if (!disabled) return setPerformance({ type: 'giveUp' });
+    if (!disabled) return setPerformance({ type: 'give_up' });
   }
 
   if (!performance.success && !performance.giveUp) {
