@@ -24,4 +24,4 @@ To run the tests use `npm test`.
 ![Fourth Screenshot](./images/lingo-4.png)
 
 ## Kudos
-This project is build with create-react-app. Also it is based on test driven development practices taught by Bonnie Schulkin.
+This project is built with create-react-app. Also it is based on test driven development practices taught by Bonnie Schulkin.
