@@ -1,12 +1,11 @@
 import React from 'react';
 
 import languageContext from '../contexts/languageContext';
-import stringsModule from '../helpers/strings';
+import stringModule from '../helpers/strings';
 
 /**
  * Functional react component for congratulatory message
  * @function
- * @param {object} props - React props 
  * @returns {JSX.Element} - Rendered component (or null is 'success' prop is false)
  */
 const Congrats = () => {
@@ -18,7 +17,7 @@ const Congrats = () => {
         className="alert alert-success"
       >
         <span data-test="congrats-message">
-          {stringsModule.getStringByLanguage(language, 'congrats')}
+          {stringModule.getStringByLanguage(language, 'congrats')}
         </span>
       </div>
     )
