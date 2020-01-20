@@ -13,9 +13,13 @@ const GiveUpMessage = ({ children }) => {
       data-test="component-give-up-message"
       role="alert"
     >
-      <h4 class="alert-heading">{children}</h4>
+      <h4 className="alert-heading">
+        {`${stringModule.getStringByLanguage(language, 'secretWordSpoiler')} ${children}`}
+      </h4>
       <hr />
-      <p>{stringModule.getStringByLanguage(language, 'giveUpMessage')}</p>
+      <p data-test="give-up-message">
+        {stringModule.getStringByLanguage(language, 'giveUpMessage')}
+      </p>
     </div>
   )
 };
