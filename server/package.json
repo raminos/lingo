@@ -1,0 +1,26 @@
+{
+  "name": "lingo-server",
+  "version": "1.0.0",
+  "description": "A simple Express server to serve language files to a React client.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node src/index.js",
+    "test": "jest --forceExit"
+  },
+  "author": "Ramin Azhdari",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/polyfill": "^7.8.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/node": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@types/express": "^4.17.2",
+    "babel-jest": "^24.9.0",
+    "nodemon": "^2.0.2",
+    "supertest": "^4.0.2"
+  }
+}

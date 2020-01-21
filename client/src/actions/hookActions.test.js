@@ -20,7 +20,7 @@ describe('moxios tests', () => {
         response: secretWord,
       });
     });
-    
+
     // create mock for callback arg
     const mockSetSecretWord = jest.fn();
 

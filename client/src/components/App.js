@@ -2,15 +2,12 @@ import React, { useEffect, useState } from 'react';
 
 import './App.css';
 
-
 import hookActions from '../actions/hookActions';
 import stringModule from '../helpers/strings';
-
 
 import languageContext from '../contexts/languageContext';
 import guessedWordsContext from '../contexts/guessedWordsContext';
 import performanceContext from '../contexts/performanceContext';
-
 
 import GuessedWords from './GuessedWords';
 import Congrats from './Congrats';
@@ -82,9 +79,6 @@ const App = ({ initialState = null }) => {
     );
   }
 
-  /**
-   * Complete body of the app.
-   */
   return (
     <div data-test="component-app" className="container px-5">
       <div className="row">
@@ -108,8 +102,10 @@ const App = ({ initialState = null }) => {
       <div className="row">
         <div className="col">
           {
-            // this coniditional renders the Explanation component only
-            // when there are guessedWords but no performance endpoint.
+            /**  
+             * this coniditional renders the Explanation component only
+             * when there are guessedWords but no performance endpoint.
+             */
             !performance.success &&
             !performance.giveUp &&
             (guessedWords.length !== 0) &&
