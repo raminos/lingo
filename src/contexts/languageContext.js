@@ -5,7 +5,10 @@ import React from 'react';
 const languageContext = React.createContext();
 
 /**
- * @returns {array} - languageContext calue, which is a state of [value, setter].
+ * Initializes useContext hook and throws error if function is used outside of 
+ * the provider's scope.
+ * @function useLanguage
+ * @returns {Array} languageContext value, which is a state of [value, setter].
  */
 const useLanguage = () => {
 
@@ -20,8 +23,11 @@ const useLanguage = () => {
 
 
 /**
+ * Provider function for the languageContext. Uses the useMemo hook to not
+ * update unnecessarily.
+ * @function LanguageProvider
  * @param {object} props - props to pass through from declared component.
- * @returns {JSC.Element} - Provider component
+ * @returns {JSX.Element} - Provider component.
  */
 const LanguageProvider = (props) => {
   const defaultLanguage = 'en';

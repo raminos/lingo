@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import languageContext from './languageContext';
 import performanceContext from './performanceContext';
 import guessedWordsContext from './guessedWordsContext';
@@ -14,5 +15,10 @@ const AppContext = ({ children }) => {
     </languageContext.LanguageProvider>
   )
 };
+
+AppContext.propTypes = {
+  children: PropTypes.node.isRequired
+};
+
 
 export default AppContext;

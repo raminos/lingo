@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-// css
+
 import './App.css';
 
-// helpers
+
 import hookActions from '../actions/hookActions';
 import stringModule from '../helpers/strings';
 
-// contexts
+
 import languageContext from '../contexts/languageContext';
 import guessedWordsContext from '../contexts/guessedWordsContext';
 import performanceContext from '../contexts/performanceContext';
 
-// components
+
 import GuessedWords from './GuessedWords';
 import Congrats from './Congrats';
 import Input from './Input';

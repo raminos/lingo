@@ -32,6 +32,7 @@ const Spinner = ({children}) => {
 };
 
 Spinner.propTypes = {
+  
   // The component is recieving Arrays of JSX elements because of ReactHtmlParser
   children: PropTypes.array.isRequired
 }

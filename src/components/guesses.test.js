@@ -80,6 +80,7 @@ describe('test word guesses', () => {
     describe('correct guess', () => {
       beforeEach(() => {
         const mockEvent = { target: { value: 'party' } };
+        
         // simulate user entry
         inputBox.simulate('change', mockEvent);
         submitButton.simulate('click');
@@ -93,6 +94,7 @@ describe('test word guesses', () => {
     describe('incorrect guess', () => {
       beforeEach(() => {
         const mockEvent = { target: { value: 'train' } };
+        
         // simulate user entry
         inputBox.simulate('change', mockEvent);
         submitButton.simulate('click');

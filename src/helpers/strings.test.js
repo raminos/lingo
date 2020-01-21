@@ -7,6 +7,7 @@ const strings = {
 }
 
 describe('language string testing', () => {
+  
   // use a mockWarn, so console.warn won't fire during the tests
   const mockWarn = jest.fn();
   let originalWarn;

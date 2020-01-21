@@ -20,6 +20,7 @@ const mockGetSecretWord = jest.fn();
  * @returns {Enzyme.ReactWrapper} a ReactWrapper of the isolated component in it's needed contexts.
  */
 const setup = (secretWord = "party") => {
+  
   // clear the mock function for every test
   mockGetSecretWord.mockClear();
   hookActions.getSecretWord = mockGetSecretWord

@@ -6,7 +6,10 @@ import React from 'react';
 const performanceContext = React.createContext();
 
 /**
- * @returns {array} - performanceContext value, which is a state of [value, setter].
+ * Initializes useContext hook and throws error if function is used outside of 
+ * the provider's scope.
+ * @function usePerformance
+ * @returns {Array} performanceContext value, which is a state of [value, setter].
  */
 const usePerformance = () => {
 
@@ -34,8 +37,11 @@ const reducer = (state, action) => {
 }
 
 /**
+ * Provider function for the performanceContext. Uses the useMemo hook to not
+ * update unnecessarily.
+ * @function PerformanceProvider
  * @param {object} props - props to pass through from declared component.
- * @returns {JSC.Element} - Provider component
+ * @returns {JSX.Element} - Provider component.
  */
 const PerformanceProvider = (props) => {
   const [performance, setPerformance] = React.useReducer(reducer, {

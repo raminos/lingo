@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 
-// contexts
+
 import AppContext from './'; 
 import languageContext from './languageContext';
 import performanceContext from './performanceContext';

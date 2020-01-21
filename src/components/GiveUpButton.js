@@ -1,6 +1,6 @@
 import React from 'react';
 import stringModule from '../helpers/strings';
-// contexts
+
 import performanceContext from '../contexts/performanceContext';
 import languageContext from '../contexts/languageContext';
 import guessedWordsContext from '../contexts/guessedWordsContext';

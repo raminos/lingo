@@ -67,8 +67,10 @@ const Input = ({ secretWord }) => {
    */
   const handleClick = (event) => {
     event.preventDefault();
+    
     // return in case of incomplete submit
     if (currentGuess.length < 5) return null;
+    
     // change the performance state according to the correct guess
     if (currentGuess === secretWord) setPerformance({ type: 'success' });
 

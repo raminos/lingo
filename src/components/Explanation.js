@@ -1,7 +1,7 @@
 import React from 'react';
-// contexts
+
 import languageContext from '../contexts/languageContext';
-// helpers
+
 import stringModule from '../helpers/strings';
 
 /**
