@@ -4,18 +4,20 @@ This is a SPA version of the dutch television game Lingo. It is translated into 
 
 ## Technologies
  - React
- - Enzyme
+ - Jest, Enzyme
  - Bootstrap
- - (Express)
+ - Node, Express
 
 ## Set Up
 Until now you would need a server that serves five letter words to the application. (I will upload mine soon)
 
 To install use `npm install` to install the needed npm modules.
 
-To start use `npm start` and a browser window will open with the application.
+### Client
 
-To run the tests use `npm test`.
+To start client and server you need to seperately use `npm start`. For the client a browser window  with the application will open.
+
+To run the tests you can use the `npm test` command in each subdirectory.
 
 ## Screenshots
 ![First Screenshot](./images/lingo-1.png)
@@ -24,4 +26,4 @@ To run the tests use `npm test`.
 ![Fourth Screenshot](./images/lingo-4.png)
 
 ## Kudos
-This project is built with create-react-app. Also it is based on test driven development practices taught by Bonnie Schulkin.
+This project is built on the client side with create-react-app. It is based on test driven development practices taught by Bonnie Schulkin.
