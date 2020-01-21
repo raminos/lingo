@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
 import { findByTestAttribute, checkProps } from '../../test/testUtilities';
 import Input from './Input';
 
@@ -8,9 +8,10 @@ import performanceContext from '../contexts/performanceContext';
 import guessedWordsContext from '../contexts/guessedWordsContext';
 
 /**
- * Setup function to test the input component using a ReactWrapper.
- * @param {object} testValues - Context and props values for this specific test.
- * @returns {ShallowWrapper} - ReactWrapper for Input component and providers
+ * Setup function to test the Input component using a ReactWrapper.
+ * @param {object} testValues - Context and props values to setup tests.
+ * @param {string} test
+ * @returns {Enzyme.ReactWrapper} ReactWrapper for Input component and providers
  */
 const setup = ({ language, secretWord, performance }) => {
   language = language || 'en';
@@ -38,7 +39,7 @@ test('does not throw error with expected props', () => {
 });
 
 describe('state controlled input field', () => {
-  const mockEvent = { target: { value: 'train' } };
+  const mockEvent = { target: { value: 'plane' } };
   let mockSetCurrentGuess;
   let wrapper;
 
@@ -51,7 +52,7 @@ describe('state controlled input field', () => {
     const inputBox = findByTestAttribute(wrapper, 'input-box');
 
     inputBox.simulate('change', mockEvent);
-    expect(mockSetCurrentGuess).toHaveBeenCalledWith('train');
+    expect(mockSetCurrentGuess).toHaveBeenCalledWith('plane');
   });
 });
 
@@ -66,9 +67,4 @@ describe('LanguagePicker', () => {
     const submitButton = findByTestAttribute(wrapper, 'submit-button');
     expect(submitButton.text()).toMatch(/soumettre/i);
   });
-});
-
-test('Input component does not show when success is true', () => {
-  const wrapper = setup({ secretWord: 'party', performance: { success: true } });
-  expect(wrapper.isEmptyRender()).toBe(true);
 });

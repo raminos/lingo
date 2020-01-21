@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
 import { findByTestAttribute } from '../../test/testUtilities';
 
 import guessedWordsContext from '../contexts/guessedWordsContext';
@@ -8,7 +8,15 @@ import languageContext from '../contexts/languageContext';
 
 import Input from './Input';
 import GuessedWords from './GuessedWords';
+import InfoMessage from './InfoMessage';
 
+/**
+ * Factory function to create a ReactWrapper for the GuessedWords component.
+ * @function setup
+ * @param {array} [guessedWordsStrings = []] - Sets guessedWordsContext to the needed setup.
+ * @param {string} [secretWord = 'party'] - Sets the secretWord prop in the Input component to the needed setup.
+ * @returns {Enzyme.ReactWrapper[]} An Array of ReactWrappers of the wrapper, as well as the inputBox and the submitButton.
+ */
 const setup = (guessedWordsStrings = [], secretWord = 'party') => {
   const wrapper = mount(
     <languageContext.LanguageProvider>
@@ -17,6 +25,7 @@ const setup = (guessedWordsStrings = [], secretWord = 'party') => {
 
           <Input secretWord={secretWord} />
           <GuessedWords />
+          <InfoMessage />
 
         </guessedWordsContext.GuessedWordsProvider>
       </performanceContext.PerformanceProvider>
@@ -49,13 +58,18 @@ describe('test word guesses', () => {
 
     test('incorrect guess is updates the GuessWords table row count', () => {
       const mockEvent = { target: { value: 'train' } };
-
+      
+      // simulate user entry
       inputBox.simulate('change', mockEvent);
       submitButton.simulate('click');
 
       const guessedWordsTableRows = findByTestAttribute(wrapper, 'guessed-word');
       expect(guessedWordsTableRows.length).toBe(1);
     });
+    test('renders instructions to guess a word', () => {
+      const infoMessage = findByTestAttribute(wrapper, 'component-info-message')
+      expect(infoMessage.length).toBe(1);
+    })
   })
 
   describe('non-empty guessedWords', () => {
@@ -66,22 +80,20 @@ describe('test word guesses', () => {
     describe('correct guess', () => {
       beforeEach(() => {
         const mockEvent = { target: { value: 'party' } };
+        // simulate user entry
         inputBox.simulate('change', mockEvent);
         submitButton.simulate('click');
-      });
-      test('Input component contains no children', () => {
-        const inputComponent = findByTestAttribute(wrapper, 'component-input');
-        expect(inputComponent.children().length).toBe(0);
       });
       test('GuessedWords table row count reflects updated guess', () => {
         const guessedWordsTableRows = findByTestAttribute(wrapper, 'guessed-word');
         expect(guessedWordsTableRows.length).toBe(2);
-      })
+      });
     });
 
     describe('incorrect guess', () => {
       beforeEach(() => {
         const mockEvent = { target: { value: 'train' } };
+        // simulate user entry
         inputBox.simulate('change', mockEvent);
         submitButton.simulate('click');
       });
@@ -91,7 +103,7 @@ describe('test word guesses', () => {
       test('GuessedWords table row count reflects updated guess', () => {
         const guessedWordsTableRows = findByTestAttribute(wrapper, 'guessed-word');
         expect(guessedWordsTableRows.length).toBe(2);
-      })
+      });
     });
   });
 });

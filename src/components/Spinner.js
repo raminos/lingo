@@ -1,36 +1,39 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import languageContext from '../contexts/languageContext';
-import stringModule from '../helpers/strings';
-
-const Spinner = () => {
-  const [language] = languageContext.useLanguage();
+/**
+ * Functional React component to display a spinner element.
+ * @function Spinner
+ * @param {Object} props - React props object.
+ * @param {JSX.Element[]} children - The neededLanguage strings. Due to the 
+ * ReactHtmlParser module the component receives Arrays of JSX elements.
+ * @returns {JSX.Element} Rendered React component.
+ */
+const Spinner = ({children}) => {
   return (
     <div
-      className="container"
       data-test="component-spinner"
-    >
-      <div className="d-flex justify-content-center">
-        <div className="row">
-          <div className="">
-            <div
-              className="spinner-grow mx-5 text-muted"
-              role="status"
-            >
-              <span className="sr-only">
-                Loading...
+      className="d-flex justify-content-center">
+      <div>
+        <div
+          className="spinner-grow text-muted"
+          role="status"
+        >
+          <span className="sr-only">
+            Loading...
             </span>
-            </div>
-            <div className="row">
-              <p className="text-muted">
-                {stringModule.getStringByLanguage(language, 'loading')}
-              </p>
-            </div>
-          </div>
         </div>
+        <p className="text-muted">
+          {children}
+        </p>
       </div>
     </div>
   );
 };
+
+Spinner.propTypes = {
+  // The component is recieving Arrays of JSX elements because of ReactHtmlParser
+  children: PropTypes.array.isRequired
+}
 
 export default Spinner;

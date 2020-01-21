@@ -4,12 +4,24 @@ import languageContext from '../contexts/languageContext';
 // helpers
 import stringModule from '../helpers/strings';
 
+/**
+ * Functional React component for the explanation of the tiles' coloring.
+ * @function Congrats
+ * @returns {JSX.Element} Rendered component
+ */
 const Explanation = () => {
   const [language] = languageContext.useLanguage();
+  /**
+   * internal component state to manage the close button functionality.
+   * */
   const [visible, setVisible] = React.useState(true);
 
+  /**
+   * gets triggered by the languageContext. Sets visible to true so 
+   * that the user can see the explanation again upon language change.
+   */
   React.useEffect(() => {
-    setVisible({ type: 'language_change' });
+    setVisible(true);
   }, [language]);
 
   if (visible) {
@@ -17,9 +29,10 @@ const Explanation = () => {
       <div
         data-test="component-explanation"
         className="alert alert-warning alert-dismissible"
-        role="alert"
       >
-        <h4>{stringModule.getStringByLanguage(language, 'tableExplanationHeading')}</h4>
+        <h4>
+          {stringModule.getStringByLanguage(language, 'tableExplanationHeading')}
+        </h4>
         <hr />
         <p data-test="explanation-message">
           {stringModule.getStringByLanguage(language, 'tableExplanation')}
@@ -38,4 +51,4 @@ const Explanation = () => {
   else return null;
 };
 
-export default Explanation
+export default Explanation;

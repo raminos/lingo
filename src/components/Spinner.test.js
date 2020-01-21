@@ -1,16 +1,16 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { findByTestAttribute } from '../../test/testUtilities';
+import Enzyme, { shallow } from 'enzyme';
+import { findByTestAttribute, checkProps } from '../../test/testUtilities';
 
 import Spinner from './Spinner';
-import languageContext from '../contexts/languageContext';
 
-const setup = (language = 'en') => {
-  const wrapper = mount(
-    <languageContext.LanguageProvider value={[language, jest.fn()]}>
-      <Spinner />
-    </languageContext.LanguageProvider>
-  );
+/**
+ * Factory function to create a ShallowWrapper for the Spinner component.
+ * @function setup
+ * @returns {Enzyme.ShallowWrapper} A ShallowWrapper of the isolated component.
+ */
+const setup = () => {
+  const wrapper = shallow(<Spinner>{[]}</Spinner>);
   const component = findByTestAttribute(wrapper, 'component-spinner');
   return component;
 }
@@ -19,7 +19,6 @@ test('renders without errors', () => {
   const spinnerComponent = setup();
   expect(spinnerComponent.exists()).toBe(true);
 });
-test('displays expected text in French', () => {
-  const spinnerComponent = setup('fr');
-  expect(spinnerComponent.text()).toMatch(/chargement/i);
-});
+test('does not throw error with expected props', () => {
+  checkProps(Spinner, {children: []});
+})

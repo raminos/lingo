@@ -4,9 +4,9 @@ import languageContext from '../contexts/languageContext';
 import stringModule from '../helpers/strings';
 
 /**
- * Functional react component for congratulatory message
- * @function
- * @returns {JSX.Element} - Rendered component (or null is 'success' prop is false)
+ * Functional React component for a congratulatory message
+ * @function Congrats
+ * @returns {JSX.Element} Rendered component
  */
 const Congrats = () => {
   const [language] = languageContext.useLanguage();

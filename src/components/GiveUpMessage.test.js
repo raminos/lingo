@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
 import { findByTestAttribute } from '../../test/testUtilities';
 
 import GiveUpMessage from './GiveUpMessage';
@@ -9,8 +9,8 @@ import languageContext from '../contexts/languageContext';
 /**
  * Factory function to create a ShallowWrapper for the GiveUpMessage component.
  * @function setup
- * @param {string} [language] - Language code specific to this setup.
- * @returns {ReactWrapper} 
+ * @param {string} [language] - Sets languageContext to the needed setup.
+ * @returns {Enzyme.ReactWrapper} A ReactWrapper of the isolated component in it's needed context.
  */
 const setup = (language = 'en') => {
   return mount(

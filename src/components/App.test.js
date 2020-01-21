@@ -1,19 +1,26 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
 import { findByTestAttribute } from '../../test/testUtilities';
+
 import App from './App';
 
 import hookActions from '../actions/hookActions';
 import AppContext from '../contexts';
 
+/**
+ * mock function to spy on the usage of getSecretWord function.
+ * @function mockGetSecretWord
+ */
 const mockGetSecretWord = jest.fn();
+
 /**
  * Factory function to create a ShallowWrapper for the GuessedWords component.
  * @function setup
- * @param {string} secretWord - desired secretWord state value for test
- * @returns {ReactWrapper}
+ * @param {string} [secretWord ='party'] - desired test value for the secretWord state 
+ * @returns {Enzyme.ReactWrapper} a ReactWrapper of the isolated component in it's needed contexts.
  */
 const setup = (secretWord = "party") => {
+  // clear the mock function for every test
   mockGetSecretWord.mockClear();
   hookActions.getSecretWord = mockGetSecretWord
 
@@ -39,11 +46,13 @@ describe('getSecretWord calls', () => {
   test('secretWord does not update on App update', () => {
     const wrapper = setup();
     mockGetSecretWord.mockClear();
-
     const mockEvent = { target: { value: 'train' } };
+
+    // selecting the elements needed
     const inputBox = findByTestAttribute(wrapper, 'input-box');
     const submitButton = findByTestAttribute(wrapper, 'submit-button');
 
+    // simulate an attempt to guess the secret word
     inputBox.simulate('change', mockEvent);
     submitButton.simulate('click', { preventDefault() { } });
 

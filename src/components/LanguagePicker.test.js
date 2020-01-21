@@ -1,37 +1,40 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
 import { findByTestAttribute } from '../../test/testUtilities';
 
 import LanguagePicker from './LanguagePicker';
 import languageContext from '../contexts/languageContext';
-import performanceContext from '../contexts/performanceContext';
 
+/**
+ * Mock function to spy on calls to useLanguage.
+ */
 const mockUseLanguage = jest.fn().mockReturnValue([null, jest.fn()]);
 
+/**
+ * Factory function to create a ReactWrapper for the LanguagePicker component.
+ * @function setup
+ * @returns {Enzyme.ReactWrapper} A ReactWrapper of the isolated component in it's needed context.
+ */
 const setup = () => {
   return mount(
-    <performanceContext.PerformanceProvider>
       <languageContext.LanguageProvider value={mockUseLanguage()}>
         <LanguagePicker />
       </languageContext.LanguageProvider>
-    </performanceContext.PerformanceProvider>
   );
 }
 
 test('renders without errors', () => {
-  const wrapper = setup();
-  const component = findByTestAttribute(wrapper, 'component-language-picker');
+  const component = findByTestAttribute(setup(), 'component-language-picker');
   expect(component.exists()).toBe(true);
 });
 test('renders non-zero language icons', () => {
-  const wrapper = setup();
-  const languageIcons = findByTestAttribute(wrapper, 'language-icon');
+  const languageIcons = findByTestAttribute(setup(), 'language-icon');
   expect(languageIcons.length).toBeGreaterThan(0);
 });
 test('calls setLanguage upon click', () => {
-  const wrapper = setup();
-  const languageIcons = findByTestAttribute(wrapper, 'language-icon');
-
+  const languageIcons = findByTestAttribute(setup(), 'language-icon');
+  
+  // simulate click on first icon
   const firstIcon = languageIcons.first();
   firstIcon.simulate('click');
 

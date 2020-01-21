@@ -3,7 +3,13 @@ import React from 'react';
 import languageContext from '../contexts/languageContext';
 import stringModule from '../helpers/strings';
 
-
+/**
+ * Functional React component to display the secret word and a supportive message.
+ * @function GiveUpMessage
+ * @param {Object} props - React props
+ * @param {string} props.children - The secret word
+ * @returns {JSX.Element} Rendered component
+ */
 const GiveUpMessage = ({ children }) => {
   const [language] = languageContext.useLanguage();
 

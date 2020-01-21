@@ -1,5 +1,12 @@
 import React from 'react';
 
+/**
+ * Functional React component to display a navbar element.
+ * @function Nav
+ * @param {Object} props - React props object.
+ * @param {JSX.Element} children - Any content that should be rendered in the navbar.
+ * @returns {JSX.Element} Rendered React component.
+ */
 const Nav = ({ children }) => {
   return (
     <div 

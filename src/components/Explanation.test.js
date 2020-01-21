@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
 import { findByTestAttribute } from '../../test/testUtilities';
 
 import languageContext from '../contexts/languageContext';
@@ -8,10 +8,10 @@ import languageContext from '../contexts/languageContext';
 import Explanation from './Explanation';
 
 /**
- * Factory function to create a ShallowWrapper for the Explanation component.
+ * Factory function to create a ReactWrapper for the Explanation component.
  * @function setup
- * @param {string} [language] - Language code specific to this setup.
- * @returns {ReactWrapper} 
+ * @param {string} [language = 'en'] - Sets language context to needed setup.
+ * @returns {Enzyme.ReactWrapper} A ReactWrapper of the isolated component in it's needed context.
  */
 const setup = (language = 'en') => {
   const wrapper = mount(
@@ -37,6 +37,8 @@ describe('Rendering of the component', () => {
   test('does not render after clicking on the close button', () => {
     const closeButton = findByTestAttribute(wrapper, 'close-button');
     closeButton.simulate('click');
+    
+    // check for the html inside, because the Wrapper gets still rendered.
     expect(wrapper.html()).toBe('');
   });
 });

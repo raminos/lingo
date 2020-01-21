@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
 import { findByTestAttribute } from '../../test/testUtilities';
 
 import languageContext from '../contexts/languageContext';
@@ -8,10 +7,10 @@ import languageContext from '../contexts/languageContext';
 import Congrats from './Congrats';
 
 /**
- * Factory function to create a ShallowWrapper for the Congrats component.
+ * Factory function to create a ReactWrapper for the Congrats component.
  * @function setup
- * @param {string} [language] - Language code specific to this setup.
- * @returns {ReactWrapper} 
+ * @param {string} [language = 'en'] - Sets languageContext to the needed setup.
+ * @returns {Enzyme.ReactWrapper} A ReactWrapper of the isolated component in it's needed context.
  */
 const setup = (language = 'en') => {
   return mount(
@@ -35,7 +34,7 @@ test('renders congrats message', () => {
 describe('LanguagePicker', () => {
   test('correctly renders congrats string in english', () => {
     const wrapper = setup();
-    expect(wrapper.text()).toMatch(/Congratulations/i);
+    expect(wrapper.text()).toMatch(/congratulations/i);
   });
   test('correctly renders congrats string in French', () => {
     const wrapper = setup('fr');
