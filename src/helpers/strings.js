@@ -14,7 +14,7 @@ const languageStrings = {
     giveUpButton: "Give Up",
     giveUpMessage: "Oh no! Sadly, you've decided to end the game! Maybe the word was too difficult? You could give it another try. This time it will definitely be easier. Promised!",
     tryAgainButton: "Try Again",
-    tableExplanation: "⬛️ The black squares indicate that the letter doesn't match any letter of the secret word. <br> 🟦 The blue squares indicate that there is a matching letter in another position. <br> 🟩 The green squares indicate that the letter matches the position in the secret word.",
+    tableExplanation: "⬛️ Black squares indicate that the letter doesn't match any letter of the secret word. <br> 🟦 Blue squares indicate that there is a matching letter in another position in the secret word. <br> 🟩 Green squares indicate that the letter matches in the same position in the secret word.",
     tableExplanationHeading: 'Explanation',
     secretWordSpoiler: "The secret word is:"
   },
